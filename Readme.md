@@ -13,13 +13,13 @@ It was created for learning microservice architecture.
 | TodoEndpoint | Endpoint |   ----    |    Nginx    |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
 |    TodoDB    |    DB    |   ----    |   MariaDB   |             ----             | DB For TodoApi.                                      |    ----     |
 
-## Access Flow
+### Access Flow
 
 TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
 
 ## Deployment
 
-## Docker
+### Docker
 
 Requirements
 
@@ -36,7 +36,7 @@ docker compose up -d --build
 
 After deployment, it can be accessed on localhost:5000.
 
-## Kubernetes
+### Kubernetes
 
 Requirements
 
@@ -57,7 +57,7 @@ If you use the default namespace, `-n $DEPLOY_NAMESPACE` is optional.
 
 After deployment, it can be accessed on Server IP:31000 using the node port.
 
-## Development
+### Development
 
 Requirements
 
@@ -66,7 +66,7 @@ Requirements
 - Visual Studio Code
 - Remote - Containers(VSCode Extentions)
 
-## TodoApi/TodoUI
+### TodoApi/TodoUI
 
 Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
 
