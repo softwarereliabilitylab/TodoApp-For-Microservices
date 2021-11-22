@@ -4,6 +4,7 @@ metadata:
   name: app
 build:
   artifacts:
+    - image: mariadb
     - image: todoapi
       context: ./TodoApi
     - image: todoui

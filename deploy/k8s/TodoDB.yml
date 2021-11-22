@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tododb
-          image: tododb
+          image: mariadb
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: todoapi
