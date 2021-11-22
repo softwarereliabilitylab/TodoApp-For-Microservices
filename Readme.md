@@ -57,7 +57,7 @@ If you use the default namespace, `-n $DEPLOY_NAMESPACE` is optional.
 
 After deployment, it can be accessed on Server IP:31000 using the node port.
 
-### Development
+## Development
 
 Requirements
 
