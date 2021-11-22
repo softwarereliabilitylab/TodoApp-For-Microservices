@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoui-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoui
+  template:
+    metadata:
+      labels:
+        app: todoui
+    spec:
+      containers:
+        - name: todoui
+          image: todoui
+          env:
+            - name: urls
+              value: http://*:5000
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoui
+spec:
+  type: ClusterIP
+  ports:
+    - name: todoui
+      port: 5000
+      targetPort: 5000
+  #      nodePort: 31001 # Debug
+  #      protocol: TCP
+  selector:
+    app: todoui

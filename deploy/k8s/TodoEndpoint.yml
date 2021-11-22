@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoendpoint-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoendpoint
+  template:
+    metadata:
+      labels:
+        app: todoendpoint
+    spec:
+      containers:
+        - name: todoendpoint
+          image: todoendpoint
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoendpoint
+spec:
+  type: NodePort
+  ports:
+    - name: todoendpoint
+      port: 80
+      targetPort: 80
+      nodePort: 31000
+      protocol: TCP
+  selector:
+    app: todoendpoint

@@ -1,0 +1,94 @@
+﻿@page "/"
+@using TodoUI.Data
+@inject HttpClient Http
+
+<PageTitle>TodoUI</PageTitle>
+
+<h1>TodoUI</h1>
+
+<label>Name</label>
+<input type="text" @bind="name" />
+<label>IsComplete</label>
+<input type="checkbox" @onclick="toggle" />
+<button @onclick="Add">Add</button>
+
+@if (todoItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>IsComplete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var todoItem in todoItems)
+            {
+                <tr>
+                    <td>@todoItem.Id</td>
+                    <td>@todoItem.Name</td>
+                    <td>@todoItem.IsComplete</td>
+                    <td><button @onclick="() => Update(todoItem.Id,todoItem.Name)">Update</button></td>
+                    <td><button @onclick="()=> Delete(todoItem.Id)">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private TodoItem[]? todoItems;
+
+    private const string TodoURL = "http://todoapi:5000/api/todoitems";
+
+    private string? name;
+    private bool iscomplete;
+
+    protected override async Task OnInitializedAsync()
+    {
+        name = null;
+        iscomplete = false;
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+    }
+
+    private void toggle()
+    {
+        iscomplete = !iscomplete;
+    }
+
+
+    private async Task Add()
+    {
+        var todoItem = new TodoItem() { Name = name, IsComplete = iscomplete };
+
+        await Http.PostAsJsonAsync<TodoItem>(TodoURL, todoItem);
+
+        name = null;
+
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+    }
+
+    public async Task Delete(long Id)
+    {
+        await Http.DeleteAsync($"{TodoURL}/{Id}");
+
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+    }
+
+    public async Task Update(long Id, string? names)
+    {
+        name = name ?? names;
+        var todoItem = new TodoItem() { Id = Id, Name = name, IsComplete = iscomplete };
+        await Http.PutAsJsonAsync<TodoItem>($"{TodoURL}/{Id}", todoItem);
+
+        name = null;
+
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+    }
+}

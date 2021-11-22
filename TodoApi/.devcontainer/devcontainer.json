@@ -1,0 +1,22 @@
+{
+    "name": "todoapi-dev",
+    "dockerComposeFile": [
+        "./docker-compose.yml"
+    ],
+    "service": "todoapi-dev",
+    "workspaceFolder": "/TodoApi",
+    "extensions": [
+        "ms-dotnettools.csharp",
+        "jchannon.csharpextensions",
+        "fudge.auto-using",
+        "formulahendry.dotnet-test-explorer",
+        "leopotam.csharpfixformat",
+        "josephwoodward.vscodeilviewer",
+        "k--kato.docomment",
+        "patcx.vscode-nuget-gallery",
+        "jmrog.vscode-nuget-package-manager",
+        "jesschadwick.nuget-reverse-package-search",
+        "eservice-online.vs-sharper",
+        "oderwat.indent-rainbow"
+    ]
+}

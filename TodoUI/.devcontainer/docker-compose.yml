@@ -1,0 +1,57 @@
+services:
+  todoui-dev:
+    build:
+      context: .
+      args:
+        - USER=${USER:-user}
+        - USER_ID=${USER_ID:-1000}
+        - GROUP_ID=${GROUP_ID:-1000}
+    image: todoui-dev
+    container_name: todoui-dev
+    ports:
+      - "5001:5000"
+    volumes:
+      - type: bind
+        source: ../
+        target: /TodoUI
+    depends_on:
+      - todoapi
+    tty: true
+    command: bash
+  todoapi:
+    build:
+      context: ../../TodoApi
+    image: todoapi
+    container_name: todoapi
+    ports:
+      - "5000:5000"
+    environment:
+      - urls=http://*:5000
+      - ConnectionStrings__MySQL=Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
+    depends_on:
+      - tododb
+  tododb:
+    image: mariadb
+    container_name: tododb
+    volumes:
+      - type: volume
+        source: tododb-data
+        target: /var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=todoapi
+      - MYSQL_DATABASE=todoapi
+      - MYSQL_USER=todoapi
+      - MYSQL_PASSWORD=todoapi
+  tododb-console:
+    image: adminer
+    container_name: tododb-console
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=tododb
+    depends_on:
+      - tododb
+
+volumes:
+  tododb-data:
+    name: tododb-data

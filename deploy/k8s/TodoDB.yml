@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tododb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tododb
+  template:
+    metadata:
+      labels:
+        app: tododb
+    spec:
+      containers:
+        - name: tododb
+          image: tododb
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: todoapi
+            - name: MYSQL_DATABASE
+              value: todoapi
+            - name: MYSQL_USER
+              value: todoapi
+            - name: MYSQL_PASSWORD
+              value: todoapi
+          ports:
+            - containerPort: 3306
+#          volumeMounts:
+#            - mountPath: "/var/lib/mysql"
+#              name: tododb-data
+#      volumes:
+#        - name: tododb-data
+#          persistentVolumeClaim:
+#            claimName: tododb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tododb
+spec:
+  type: ClusterIP
+  ports:
+    - name: tododb
+      port: 3306
+      targetPort: 3306
+  #      nodePort: 31306 # Debug
+  #      protocol: TCP
+  selector:
+    app: tododb

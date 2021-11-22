@@ -1,0 +1,40 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: tododb-sc
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tododb-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: tododb-sc
+  local:
+    path: /mnt/kubernetes/tododb
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node-name # Need Change Deploy Node Name
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: tododb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tododb-sc
+  resources:
+    requests:
+      storage: 10Gi

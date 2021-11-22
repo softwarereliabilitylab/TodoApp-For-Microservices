@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapi
+  template:
+    metadata:
+      labels:
+        app: todoapi
+    spec:
+      containers:
+        - name: todoapi
+          image: todoapi
+          env:
+            - name: urls
+              value: http://*:5000
+            - name: ConnectionStrings__MySQL
+              value: Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapi
+spec:
+  type: ClusterIP
+  ports:
+    - name: todoapi
+      port: 5000
+      targetPort: 5000
+  #      nodePort: 31002 # Debug
+  #      protocol: TCP
+  selector:
+    app: todoapi

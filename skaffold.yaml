@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: app
+build:
+  artifacts:
+    - image: todoapi
+      context: ./TodoApi
+    - image: todoui
+      context: ./TodoUI
+    - image: todoendpoint
+      context: ./TodoEndpoint
+deploy:
+  kubectl:
+    manifests:
+      #- ./deploy/k8s/Todo-NS.yml
+      #- ./deploy/k8s/Todo-SC.yml
+      - ./deploy/k8s/TodoDB.yml
+      - ./deploy/k8s/TodoApi.yml
+      - ./deploy/k8s/TodoUI.yml
+      - ./deploy/k8s/TodoEndpoint.yml
+      #- ./deploy/k8s/Todo-Ingress.yml
