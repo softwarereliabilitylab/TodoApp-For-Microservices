@@ -6,12 +6,12 @@ It was created for learning microservice architecture.
 
 ## Structure
 
-|     Name     |   Type   | Languages | Environment |          Framework           | Description                                          | Dependences |
-| :----------: | :------: | :-------: | :---------: | :--------------------------: | ---------------------------------------------------- | :---------: |
-|   TodoApi    |  WebAPI  |    C#     |   .NET 6    |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
-|    TodoUI    |  WebUI   |    C#     |   .NET 6    | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)                                 |   TodoApi   |
-| TodoEndpoint | Endpoint |   ----    |    Nginx    |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
-|    TodoDB    |    DB    |   ----    |   MariaDB   |             ----             | DB For TodoApi.                                      |    ----     |
+|     Name     |   Type   | Languages | Environment |   OS   |          Framework           | Description                                          | Dependences |
+| :----------: | :------: | :-------: | :---------: | :----: | :--------------------------: | ---------------------------------------------------- | :---------: |
+|   TodoApi    |  WebAPI  |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
+|    TodoUI    |  WebUI   |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)      |   TodoApi   |
+| TodoEndpoint | Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
+|    TodoDB    |    DB    |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                      |    ----     |
 
 ### Access Flow
 
