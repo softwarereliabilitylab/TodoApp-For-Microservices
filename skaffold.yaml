@@ -15,8 +15,10 @@ deploy:
     manifests:
       #- ./deploy/k8s/Todo-NS.yml
       #- ./deploy/k8s/Todo-SC.yml
-      - ./deploy/k8s/TodoDB.yml
+      #- ./deploy/k8s/TodoDB-PVC.yml # exclusion
+      - ./deploy/k8s/TodoDB.yml # exclusion
       - ./deploy/k8s/TodoApi.yml
       - ./deploy/k8s/TodoUI.yml
       - ./deploy/k8s/TodoEndpoint.yml
+      #- ./deploy/k8s/Todo-Console.yml
       #- ./deploy/k8s/Todo-Ingress.yml

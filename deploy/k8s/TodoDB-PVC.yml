@@ -1,3 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: tododb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tododb-sc
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,6 +38,13 @@ spec:
               value: todoapi
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              name: tododb-data
+      volumes:
+        - name: tododb-data
+          persistentVolumeClaim:
+            claimName: tododb-pvc
 ---
 apiVersion: v1
 kind: Service

@@ -26,15 +26,3 @@ spec:
               operator: In
               values:
                 - node-name # Need Change Deploy Node Name
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: tododb-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: tododb-sc
-  resources:
-    requests:
-      storage: 10Gi

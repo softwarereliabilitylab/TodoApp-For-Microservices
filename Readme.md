@@ -34,7 +34,9 @@ cd TodoApp-For-Microservices/deploy/compose
 docker compose up -d --build
 ```
 
-After deployment, it can be accessed on localhost:5000.
+After deployment, it can be accessed on `localhost:5000`.
+
+You can use Adminer on `localhost:8080` to access the DB.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapiu for database.)
 
 ### Kubernetes
 
@@ -58,7 +60,65 @@ If you use the default namespace, `-n $DEPLOY_NAMESPACE` is optional.
 
 If you are using a local Docker Registry such as Minikube, `SKAFFOLD_DEFAULT_REPO=$DOCKER_REGISTRY` is not necessary.
 
-After deployment, it can be accessed on Server IP:31000 using the node port.
+After deployment, it can be accessed on `Node IP:31000` using the node port.
+
+The data in the DB is not persistent.
+
+#### Sample NS/SC/PV/PVC (Use the sample to make the data persistent.)
+
+The sample PV uses Node local.(It is not possible to increase the value of `replicas` in the database.)
+
+**The node-name in [Todo-SC.yml](./deploy/k8s/Todo-SC.yml) needs to be changed to your node name.**
+
+```bash
+git clone git@github.com:Yutaro-B18016/TodoApp-For-Microservices.git
+
+cd TodoApp-For-Microservices/deploy/k8s/
+
+kubectl apply -f Todo-NS.yml
+
+sudo mkdir -p /mnt/kubernetes/tododb
+
+sudo chmod 777 /mnt/kubernetes/tododb
+
+kubectl apply -f Todo-SC.yml
+
+cd ../../
+
+SKAFFOLD_DEFAULT_REPO=$DOCKER_REGISTRY skaffold -n todoapp run
+
+cd ./deploy/k8s/
+
+kubectl apply -n todoapp -f TodoDB-PVC.yml
+```
+
+#### Access using Ingress
+
+**The default Ingress Controller is required.**
+
+After deploying the app, do the following.
+
+```bash
+git clone git@github.com:Yutaro-B18016/TodoApp-For-Microservices.git
+
+cd TodoApp-For-Microservices/deploy/k8s/
+
+kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Ingress.yml
+```
+
+After deployment, it can be accessed by Ingress.
+
+#### Accessing the DB using Adminer
+
+```bash
+git clone git@github.com:Yutaro-B18016/TodoApp-For-Microservices.git
+
+cd TodoApp-For-Microservices/deploy/k8s/
+
+kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Console.yml
+```
+
+After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapiu for database.)
 
 ## Development
 
