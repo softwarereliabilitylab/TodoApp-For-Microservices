@@ -6,10 +6,10 @@ It was created for learning microservice architecture.
 
 ## Structure
 
-|     Name     |   Role   | Languages | Environment |          Framework           | Description                                          | Dependences |
+|     Name     |   Kind   | Languages | Environment |          Framework           | Description                                          | Dependences |
 | :----------: | :------: | :-------: | :---------: | :--------------------------: | ---------------------------------------------------- | :---------: |
 |   TodoApi    |  WebAPI  |    C#     |   .NET 6    |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
-|    TodoUI    |  WebUI   |    C#     |   .NET 6    | ASP.NET Core 6 Blazor Server | WebUI For TodoApi.                                   |   TodoApi   |
+|    TodoUI    |  WebUI   |    C#     |   .NET 6    | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)                                 |   TodoApi   |
 | TodoEndpoint | Endpoint |   ----    |    Nginx    |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
 |    TodoDB    |    DB    |   ----    |   MariaDB   |             ----             | DB For TodoApi.                                      |    ----     |
 
@@ -41,6 +41,7 @@ After deployment, it can be accessed on localhost:5000.
 Requirements
 
 - kubectl (Able to manipulate target Kubernetes)
+- Docker
 - skaffold
 
 ```bash
@@ -54,6 +55,8 @@ SKAFFOLD_DEFAULT_REPO=$DOCKER_REGISTRY skaffold -n $DEPLOY_NAMESPACE run
 **$DOCKER_REGISTRY needs to be changed to your Docker Registry, and $DEPLOY_NAMESPACE to your deploy namespace.**
 
 If you use the default namespace, `-n $DEPLOY_NAMESPACE` is optional.
+
+If you are using a local Docker Registry such as Minikube, `SKAFFOLD_DEFAULT_REPO=$DOCKER_REGISTRY` is not necessary.
 
 After deployment, it can be accessed on Server IP:31000 using the node port.
 
