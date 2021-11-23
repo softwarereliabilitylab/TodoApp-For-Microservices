@@ -1,7 +1,9 @@
 FROM debian:bullseye-slim
 
 EXPOSE 5000
-EXPOSE 11074
+
+ENV urls="http://*:5000"
+ENV ConnectionStrings__MySQL="Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;"
 
 # bindマウントのためのユーザー追加のビルド変数、利用するユーザー名、ユーザーID、グループIDを指定
 ARG USER=user

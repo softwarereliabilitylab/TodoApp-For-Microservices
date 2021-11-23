@@ -10,11 +10,11 @@ FROM alpine:latest AS APP
 
 EXPOSE 5000
 
-COPY --from=Builder /TodoApi/bin/Release/net6.0/linux-musl-x64/publish/TodoApi /TodoApi
-
 ENV urls="http://*:5000"
 ENV ConnectionStrings__MySQL="Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;"
 
 RUN apk update && apk add --no-cache libgcc libstdc++ icu
+
+COPY --from=Builder /TodoApi/bin/Release/net6.0/linux-musl-x64/publish/TodoApi /TodoApi
 
 CMD [ "/TodoApi" ]

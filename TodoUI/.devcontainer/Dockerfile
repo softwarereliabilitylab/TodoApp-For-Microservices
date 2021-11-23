@@ -2,6 +2,9 @@ FROM debian:bullseye-slim
 
 EXPOSE 5000
 
+ENV urls="http://*:5000"
+ENV todoapi="http://todoapi:5000/api/todoitems"
+
 # bindマウントのためのユーザー追加のビルド変数、利用するユーザー名、ユーザーID、グループIDを指定
 ARG USER=user
 ARG USER_ID=1000
