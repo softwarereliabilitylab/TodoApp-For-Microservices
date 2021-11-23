@@ -18,6 +18,8 @@ spec:
           env:
             - name: urls
               value: http://*:5000
+            - name: todoapi
+              value: http://todoapi:5000/api/todoitems
           ports:
             - containerPort: 5000
 ---

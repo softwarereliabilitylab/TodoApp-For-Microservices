@@ -8,6 +8,7 @@ services:
       - "5000:80"
     depends_on:
       - todoui
+
   todoui:
     build:
       context: ../../TodoUI
@@ -17,8 +18,10 @@ services:
     #  - "5001:5000"
     environment:
       - urls=http://*:5000
+      - todoapi=http://todoapi:5000/api/todoitems
     depends_on:
       - todoapi
+
   todoapi:
     build:
       context: ../../TodoApi
@@ -31,6 +34,7 @@ services:
       - ConnectionStrings__MySQL=Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
     depends_on:
       - tododb
+
   tododb:
     image: mariadb
     container_name: tododb
@@ -43,6 +47,7 @@ services:
       - MYSQL_DATABASE=todoapi
       - MYSQL_USER=todoapi
       - MYSQL_PASSWORD=todoapi
+
   tododb-console:
     image: adminer
     container_name: tododb-console
@@ -52,6 +57,7 @@ services:
       - ADMINER_DEFAULT_SERVER=tododb
     depends_on:
       - tododb
+
 
 volumes:
   tododb-data:
