@@ -9,8 +9,8 @@ builder.Services.AddHttpClient();
 
 // Get URL Todo
 var config = new ConfigurationBuilder()
-    .AddJsonFile("./appsettings.json")
-    .AddJsonFile("./appsettings.Development.json")
+    .AddJsonFile("./appsettings.json", optional: true)
+    .AddJsonFile("./appsettings.Development.json", optional: true)
     .AddEnvironmentVariables()
     .Build();
 
