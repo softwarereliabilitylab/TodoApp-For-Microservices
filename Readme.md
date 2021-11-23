@@ -129,7 +129,7 @@ Requirements
 - Docker
 - Docker Compose
 - Visual Studio Code
-- Remote - Containers(VSCode Extentions)
+- Remote - Containers (VSCode Extentions)
 - Docker (VSCode Extentions)
 
 ![TodoUI-Dev](./images/TodoUI-Dev.png)
