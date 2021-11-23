@@ -4,6 +4,8 @@ This project is a todo application that uses a microservice architecture.
 
 It was created for learning microservice architecture.
 
+![TodoUI](./images/TodoUI.png)
+
 ## Structure
 
 |     Name     |   Type   | Languages | Environment |   OS   |          Framework           | Description                                          | Dependences |
@@ -128,6 +130,9 @@ Requirements
 - Docker Compose
 - Visual Studio Code
 - Remote - Containers(VSCode Extentions)
+- Docker (VSCode Extentions)
+
+![TodoUI-Dev](./images/TodoUI-Dev.png)
 
 ### TodoApi/TodoUI
 
