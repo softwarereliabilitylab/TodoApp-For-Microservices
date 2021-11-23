@@ -36,7 +36,7 @@ docker compose up -d --build
 
 After deployment, it can be accessed on `localhost:5000`.
 
-You can use Adminer on `localhost:8080` to access the DB.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapiu for database.)
+You can use Adminer on `localhost:8080` to access the DB.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapi for database.)
 
 ### Kubernetes
 
@@ -118,7 +118,7 @@ cd TodoApp-For-Microservices/deploy/k8s/
 kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Console.yml
 ```
 
-After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapiu for database.)
+After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapi for database.)
 
 ## Development
 
