@@ -6,7 +6,7 @@ It was created for learning microservice architecture.
 
 ## Structure
 
-|     Name     |   Kind   | Languages | Environment |          Framework           | Description                                          | Dependences |
+|     Name     |   Type   | Languages | Environment |          Framework           | Description                                          | Dependences |
 | :----------: | :------: | :-------: | :---------: | :--------------------------: | ---------------------------------------------------- | :---------: |
 |   TodoApi    |  WebAPI  |    C#     |   .NET 6    |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
 |    TodoUI    |  WebUI   |    C#     |   .NET 6    | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)                                 |   TodoApi   |
