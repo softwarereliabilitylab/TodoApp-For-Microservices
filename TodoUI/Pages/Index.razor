@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using TodoUI.Data
 @inject HttpClient Http
+@inject string TodoApi
 
 <PageTitle>TodoUI</PageTitle>
 
@@ -45,8 +46,6 @@ else
 
     private TodoItem[]? todoItems;
 
-    private const string TodoURL = "http://todoapi:5000/api/todoitems";
-
     private string? name;
     private bool iscomplete;
 
@@ -54,7 +53,7 @@ else
     {
         name = null;
         iscomplete = false;
-        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoApi);
     }
 
     private void toggle()
@@ -67,28 +66,28 @@ else
     {
         var todoItem = new TodoItem() { Name = name, IsComplete = iscomplete };
 
-        await Http.PostAsJsonAsync<TodoItem>(TodoURL, todoItem);
+        await Http.PostAsJsonAsync<TodoItem>(TodoApi, todoItem);
 
         name = null;
 
-        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoApi);
     }
 
     public async Task Delete(long Id)
     {
-        await Http.DeleteAsync($"{TodoURL}/{Id}");
+        await Http.DeleteAsync($"{TodoApi}/{Id}");
 
-        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoApi);
     }
 
     public async Task Update(long Id, string? names)
     {
         name = name ?? names;
         var todoItem = new TodoItem() { Id = Id, Name = name, IsComplete = iscomplete };
-        await Http.PutAsJsonAsync<TodoItem>($"{TodoURL}/{Id}", todoItem);
+        await Http.PutAsJsonAsync<TodoItem>($"{TodoApi}/{Id}", todoItem);
 
         name = null;
 
-        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoURL);
+        todoItems = await Http.GetFromJsonAsync<TodoItem[]>(TodoApi);
     }
 }

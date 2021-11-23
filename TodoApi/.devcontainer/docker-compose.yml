@@ -18,6 +18,7 @@ services:
       - tododb
     tty: true
     command: bash
+
   tododb:
     image: mariadb
     container_name: tododb
@@ -30,6 +31,7 @@ services:
       - MYSQL_DATABASE=todoapi
       - MYSQL_USER=todoapi
       - MYSQL_PASSWORD=todoapi
+
   tododb-console:
     image: adminer
     container_name: adminer
@@ -39,6 +41,7 @@ services:
       - ADMINER_DEFAULT_SERVER=tododb
     depends_on:
       - tododb
+
 
 volumes:
   tododb-data:
