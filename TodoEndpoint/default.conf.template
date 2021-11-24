@@ -1,7 +1,8 @@
 server {
     listen        80;
-    location / {
-        proxy_pass         http://todoui:5000;
+
+    location $todoui_map {
+        proxy_pass         $todoui;
         proxy_http_version 1.1;
         proxy_set_header   Upgrade $http_upgrade;
         proxy_set_header   Connection keep-alive;
@@ -11,8 +12,8 @@ server {
         proxy_set_header   X-Forwarded-Proto $scheme;
     }
 
-    #location /api {
-    #    proxy_pass         http://todoapi:5000/api/todoitems;
+    #location $todoapi_map {
+    #    proxy_pass         $todoapi;
     #    proxy_http_version 1.1;
     #    proxy_set_header   Upgrade $http_upgrade;
     #    proxy_set_header   Connection keep-alive;
@@ -21,4 +22,5 @@ server {
     #    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
     #    proxy_set_header   X-Forwarded-Proto $scheme;
     #}
+
 }

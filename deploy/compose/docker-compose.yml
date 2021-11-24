@@ -6,6 +6,11 @@ services:
     container_name: todoendpoint
     ports:
       - "5000:80"
+    environment:
+      - todoui=http://todoui:5000
+      - todoui_map=/
+      #- todoapi=http://todoapi:5000/api/todoitems
+      #- todoapi_map=/api/todoitems
     depends_on:
       - todoui
 
