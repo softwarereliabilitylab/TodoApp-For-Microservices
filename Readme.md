@@ -8,12 +8,13 @@ It was created for learning microservice architecture.
 
 ## Structure
 
-|     Name     |   Type   | Languages | Environment |   OS   |          Framework           | Description                                          | Dependences |
-| :----------: | :------: | :-------: | :---------: | :----: | :--------------------------: | ---------------------------------------------------- | :---------: |
-|   TodoApi    |  WebAPI  |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
-|    TodoUI    |  WebUI   |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)      |   TodoApi   |
-| TodoEndpoint | Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
-|    TodoDB    |    DB    |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                      |    ----     |
+|           Name            |       Type        | Languages | Environment |   OS   |          Framework           | Description                                          | Dependences |
+| :-----------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ---------------------------------------------------- | :---------: |
+|          TodoApi          |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
+|          TodoUI           |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)      |   TodoApi   |
+|       TodoEndpoint        | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
+|          TodoDB           |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                      |    ----     |
+| TodoDB-Console (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB Optional UI                                   |   TodoDB    |
 
 ### Access Flow
 
@@ -139,3 +140,61 @@ Requirements
 Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
 
 After opening, select `Reopen in Container` in the notification at the bottom right.
+
+## Configure
+
+### TodoApi
+
+|           ENV            |                         Default Value                         |         Type         |          Description          | Enable/Disable |
+| :----------------------: | :-----------------------------------------------------------: | :------------------: | :---------------------------: | :------------: |
+|           urls           |                         http://*:5000                         |  Internal Endpoint   |       TodoApi Endpoint        |     Enable     |
+| ConnectionStrings__MySQL | Server=tododb;Database=todoapi;User=todoapi;Password=todoapi; | DB ConnectionStrings | TodoDB Connection Information |     Enable     |
+
+#### GET/POST
+
+- /api/todoitems
+
+#### PUT/DELETE
+
+- /api/todoitems/${id}
+
+#### Request Header
+
+- Content-Type: application/json
+
+#### Type
+
+- json
+
+### TodoUI
+
+|   ENV   |           Default Value           |       Type        |   Description   | Enable/Disable |
+| :-----: | :-------------------------------: | :---------------: | :-------------: | :------------: |
+|  urls   |           http://*:5000           | Internal Endpoint | TodoUI Endpoint |     Enable     |
+| todoapi | http://todoapi:5000/api/todoitems |        URL        |   TodoApi URL   |     Enable     |
+
+### TodoEndpoint
+
+|     ENV     |           Default Value           |  Type   |   Description   | Enable/Disable |
+| :---------: | :-------------------------------: | :-----: | :-------------: | :------------: |
+|   todoui    |        http://todoui:5000         |   URL   |   TodoUI URL    |     Enable     |
+| todoui_map  |                 /                 | Mapping | TodoUI Mapping  |     Enable     |
+|   todoapi   | http://todoapi:5000/api/todoitems |   URL   |   TodoApi URL   |    Disable     |
+| todoapi_map |          /api/todoitems           | Mapping | TodoApi Mapping |    Disable     |
+
+If you want to expose the TodoApi to the External, you will need to change [default.conf.template](./TodoEndpoint/default.conf.template) and set the environment variables(`todoapi` and `todoapi_map`).
+
+### TodoDB
+
+|         ENV         | Default Value |    Type     |     Description      | Enable/Disable |
+| :-----------------: | :-----------: | :---------: | :------------------: | :------------: |
+| MYSQL_ROOT_PASSWORD |    todoapi    | DB Password | TodoDB Root Password |     Enable     |
+|   MYSQL_DATABASE    |    todoapi    |   DB Name   |     TodoDB Name      |     Enable     |
+|     MYSQL_USER      |    todoapi    |   DB USER   |     TodoDB USER      |     Enable     |
+|   MYSQL_PASSWORD    |    todoapi    | DB Password |   TodoDB Password    |     Enable     |
+
+### TodoDB-Console (Optional)
+
+|          ENV           | Default Value |       Type        |   Description   | Enable/Disable |
+| :--------------------: | :-----------: | :---------------: | :-------------: | :------------: |
+| ADMINER_DEFAULT_SERVER |    tododb     | Internal Endpoint | TodoDB Endpoint |     Enable     |

@@ -15,6 +15,15 @@ spec:
       containers:
         - name: todoendpoint
           image: todoendpoint
+          env:
+          - name: todoui
+            value: http://todoui:5000
+          - name: todoui_map
+            value: /
+          - name: todoapi
+            value: http://todoapi:5000/api/todoitems
+          - name: todoapi_map
+            value: /api/todoitems
           ports:
             - containerPort: 80
 ---
