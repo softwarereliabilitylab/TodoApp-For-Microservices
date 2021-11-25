@@ -191,7 +191,7 @@ If you want to expose the TodoApi to the External, you will need to change [defa
 | MYSQL_ROOT_PASSWORD |    todoapi    | DB Password | TodoDB Root Password |     Enable     |
 |   MYSQL_DATABASE    |    todoapi    |   DB Name   |     TodoDB Name      |     Enable     |
 |     MYSQL_USER      |    todoapi    |   DB USER   |     TodoDB USER      |     Enable     |
-|   MYSQL_PASSWORD    |    todoapi    | DB Password | TodoDB Root Password |     Enable     |
+|   MYSQL_PASSWORD    |    todoapi    | DB Password |   TodoDB Password    |     Enable     |
 
 ### TodoDB-Console (Optional)
 
