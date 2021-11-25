@@ -12,6 +12,7 @@ server {
         proxy_set_header   X-Forwarded-Proto $scheme;
     }
 
+    # Uncomment the following if you want to expose the TodoApi to the External.
     #location $todoapi_map {
     #    proxy_pass         $todoapi;
     #    proxy_http_version 1.1;
