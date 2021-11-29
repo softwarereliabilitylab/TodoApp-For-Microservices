@@ -6,12 +6,14 @@ It was created for learning microservice architecture.
 
 ![TodoUI](./images/TodoUI.png)
 
+![TodoUI Dark](./images/TodoUI-Dark.png)
+
 ## Structure
 
 |           Name            |       Type        | Languages | Environment |   OS   |          Framework           | Description                                          | Dependences |
 | :-----------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ---------------------------------------------------- | :---------: |
 |          TodoApi          |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo. Requirements MariaDB or MySQL. |   TodoDB    |
-|          TodoUI           |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support (except offline)      |   TodoApi   |
+|          TodoUI           |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support. Dark-Mode Support     |   TodoApi   |
 |       TodoEndpoint        | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.                |   TodoUI    |
 |          TodoDB           |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                      |    ----     |
 | TodoDB-Console (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB Optional UI                                   |   TodoDB    |
@@ -172,6 +174,9 @@ After opening, select `Reopen in Container` in the notification at the bottom ri
 | :-----: | :-------------------------------: | :---------------: | :-------------: | :------------: |
 |  urls   |           http://*:5000           | Internal Endpoint | TodoUI Endpoint |     Enable     |
 | todoapi | http://todoapi:5000/api/todoitems |        URL        |   TodoApi URL   |     Enable     |
+
+- PWA Support (Except offline, http configuration required except localhost)
+- Dark-Mode Support (Depends on device settings)
 
 ### TodoEndpoint
 

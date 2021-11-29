@@ -1,5 +1,33 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+:root {
+    /* white */
+    --background: white;
+    --font-color: black;
+    --highlight: #f7f7f7;
+    --highlight-2: #e2e3e5;
+    --link: #0071c1;
+    --background-img: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    --border-color: #1861ac;
+    --btn-font-color: #fff;
+    --btn-background-color: #1b6ec2;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* dark-mode */
+        --background: black;
+        --font-color: white;
+        --highlight: black;
+        --highlight-2: rgb(41, 41, 41);
+        --link: #3ca4ff;
+        --background-img:  linear-gradient(180deg, rgb(1, 10, 26) 0%, rgb(15, 2, 19) 70%);
+        --border-color: #3ca4ff;
+        --btn-font-color: white;
+        --btn-background-color: black;
+    }
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -9,7 +37,21 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: var(--link);
+}
+
+.alert-secondary {
+    background-color: var(--highlight-2);
+    color: var(--font-color);
+}
+
+.table {
+    color: var(--font-color);
+}
+
+body {
+    background: var(--background);
+    color: var(--font-color);
 }
 
 .btn-primary {
