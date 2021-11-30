@@ -3,7 +3,11 @@ FROM debian:bullseye-slim
 EXPOSE 5000
 
 ENV urls="http://*:5000"
+ENV Provider="MySQL"
 ENV ConnectionStrings__MySQL="Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;"
+ENV ConnectionStrings__PostgreSQL="Host=tododb;Port=5432;User Id=todoapi;Password=todoapi;Database=todoapi;"
+ENV ConnectionStrings__SQLServer="Server=tododb;Database=todoapi;User Id=sa;Password=Xt0d0ap!;"
+ENV ConnectionStrings__SQLite="Filename=DB/todoapi.db"
 
 # bindマウントのためのユーザー追加のビルド変数、利用するユーザー名、ユーザーID、グループIDを指定
 ARG USER=user
@@ -24,8 +28,7 @@ USER ${USER}
 
 ENV PATH=/home/${USER}/.dotnet/tools:$PATH
 
-RUN dotnet tool install -g dotnet-aspnet-codegenerator \
-    && dotnet tool install -g dotnet-ef
+RUN dotnet tool install -g dotnet-aspnet-codegenerator
 
 WORKDIR /TodoApi
 

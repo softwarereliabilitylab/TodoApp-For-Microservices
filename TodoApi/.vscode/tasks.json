@@ -47,19 +47,6 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "db update",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "ef",
-                "database",
-                "update",
-                "--context",
-                "TodoContext"
-            ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }

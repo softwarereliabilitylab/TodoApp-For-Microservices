@@ -18,8 +18,18 @@ spec:
           env:
             - name: urls
               value: http://*:5000
+            - name: Provider
+              value: MySQL
             - name: ConnectionStrings__MySQL
               value: Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
+            - name: ConnectionStrings__MySQL
+              value: Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
+            - name: ConnectionStrings__PostgreSQL
+              value: Host=tododb;Port=5432;User Id=todoapi;Password=todoapi;Database=todoapi;
+            - name: ConnectionStrings__SQLServer
+              value: Server=tododb;Database=todoapi;User Id=sa;Password=Xt0d0ap!;
+            - name: ConnectionStrings__SQLite
+              value: Filename=DB/todoapi.db
           ports:
             - containerPort: 5000
 ---
