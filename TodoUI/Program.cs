@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using TodoUI.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +16,13 @@ var config = new ConfigurationBuilder()
     .Build();
 
 // DI URL
+var todoapi = new TodoApi();
+
+todoapi.Url = config.GetValue<String>("todoapi");
+
 builder.Services.AddSingleton(_ =>
 {
-    return config.GetValue<string>("todoapi");
+    return todoapi;
 });
 
 var app = builder.Build();
