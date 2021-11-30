@@ -10,6 +10,13 @@ services:
     container_name: todoapi-dev
     ports:
       - "5000:5000"
+    environment:
+      - urls=http://*:5000
+      - Provider=MySQL
+      - ConnectionStrings__MySQL=Server=tododb;Database=todoapi;User=todoapi;Password=todoapi;
+      - ConnectionStrings__PostgreSQL=Host=tododb;Port=5432;User Id=todoapi;Password=todoapi;Database=todoapi;
+      - ConnectionStrings__SQLServer=Server=tododb;Database=todoapi;User Id=sa;Password=Xt0d0ap!;
+      - ConnectionStrings__SQLite=Filename=DB/todoapi.db
     volumes:
       - type: bind
         source: ../
