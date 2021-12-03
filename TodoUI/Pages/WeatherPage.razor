@@ -1,0 +1,87 @@
+@page "/weather"
+@using TodoUI.Data
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<label>CityCode</label>
+<input type="text" @bind="cityCode" />
+<button @onclick="OnInitializedAsync">Search</button>
+
+<br><br>
+
+<p>CityCodeは<a href=@areaURL>@areaURL</a></p>
+
+@if (weather is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (checkStatus.IsSuccessStatusCode)
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>発表者</th>
+            <th>報告日時</th>
+            <th>地域</th>
+            <th>ヘッドライン</th>
+            <th>詳細</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@weather.publishingOffice</td>
+            <td>@weather.reportDatetime</td>
+            <td>@weather.targetArea</td>
+            <td>@weather.headlineText</td>
+            <td>@weather.text</td>
+        </tr>
+    </tbody>
+</table>
+
+    <q><cite>出典:気象庁ホームページ <a href=@sourceURL>@sourceURL</a></cite></q>
+}
+else
+{
+    <p><em>見つかりませんでした。</em></p>
+}
+
+@code {
+
+    private Weather? weather;
+
+    private readonly string baseURL = "https://www.jma.go.jp/bosai/forecast/data/overview_forecast/";
+    private readonly string areaURL = "http://www.jma.go.jp/bosai/common/const/area.json";
+
+    //private readonly string defaultCity = "東京都";
+    //private string? city = null;
+
+    private readonly string defaultcityCode = "130000";
+    private string? cityCode = null;
+
+    private HttpResponseMessage? checkStatus;
+
+    private string? sourceURL;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //city = city ?? defaultCity;
+        cityCode = cityCode ?? defaultcityCode;
+
+        sourceURL = $"{baseURL}{cityCode}.json";
+
+        checkStatus = await Http.GetAsync(sourceURL);
+
+        if (checkStatus.IsSuccessStatusCode)
+        {
+            weather = await
+            Http.GetFromJsonAsync<Weather>(sourceURL);
+        }
+
+        //city = null;
+        cityCode = null;
+    }
+
+}

@@ -4,9 +4,15 @@ This project is a todo application that uses a microservice architecture.
 
 It was created for learning microservice architecture.
 
+The base minimum configuration is [this branch](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v1.0.0-Minimum-Configuration).
+
+Additional microservices and external WebAPI examples are in [this branch](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/master).
+
 ![TodoUI](./images/TodoUI.png)
 
 ![TodoUI Dark](./images/TodoUI-Dark.png)
+
+![TodoUI Sample External](./images/TodoUI-Sample-External.png)
 
 ## Structure
 
@@ -18,9 +24,16 @@ It was created for learning microservice architecture.
 |          TodoDB           |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |    ----     |
 | TodoDB-Console (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB Optional UI                                |   TodoDB    |
 
+### Additional Microservices/External WebAPI Sample
+
+|  Name  |  Type  | Languages | Environment |  OS   | Framework | Description            | Dependences |
+| :----: | :----: | :-------: | :---------: | :---: | :-------: | ---------------------- | :---------: |
+| Weater | WebAPI |   ----    |    ----     | ----  |   ----    | External WebAPI Sample |    ----     |
+
 ### Access Flow
 
 TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
+                       -> External Weather WebAPI
 
 ## Deployment
 
@@ -199,6 +212,12 @@ After opening, select `Reopen in Container` in the notification at the bottom ri
 - PWA Support (Except offline, `https` configuration required except localhost)
 - Dark-Mode Support (Depends on device settings)
 
+#### Mapping
+
+- / -> TodoApi
+- /todo -> TodoApi
+- /weather -> External Weather WebAPI
+
 ### TodoEndpoint
 
 |     ENV     |           Default Value           |  Type   |   Description   | Enable/Disable |
@@ -224,3 +243,18 @@ If you want to expose the TodoApi to the External, you will need to change [defa
 |          ENV           | Default Value |       Type        |   Description   | Enable/Disable |
 | :--------------------: | :-----------: | :---------------: | :-------------: | :------------: |
 | ADMINER_DEFAULT_SERVER |    tododb     | Internal Endpoint | TodoDB Endpoint |     Enable     |
+
+### External WebAPI Sample
+
+#### WebAPI Json URL Format
+
+- https://www.jma.go.jp/bosai/forecast/data/overview_forecast/${ID}.json
+
+#### GET ID Json URL
+
+- http://www.jma.go.jp/bosai/common/const/area.json
+
+ex)
+https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
+
+<q><cite>出典:気象庁ホームページ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json</cite></q>
