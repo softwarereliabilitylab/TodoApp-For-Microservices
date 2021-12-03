@@ -33,6 +33,7 @@ Additional microservices and external WebAPI examples are in [this branch](https
 ### Access Flow
 
 TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
+
                        -> External Weather WebAPI
 
 ## Deployment
