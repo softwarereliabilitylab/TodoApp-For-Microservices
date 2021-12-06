@@ -4,9 +4,9 @@ This project is a todo application that uses a microservice architecture.
 
 It was created for learning microservice architecture.
 
-The base minimum configuration is [this branch](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v1.0.0-Minimum-Configuration).
+The base minimum configuration is [v1.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v1.x.x-Minimum-Configuration).
 
-Additional microservices and external WebAPI examples are in [this branch](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/master).
+Additional microservices and external WebAPI examples are in [v2.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/master).
 
 ![TodoUI](./images/TodoUI.png)
 
