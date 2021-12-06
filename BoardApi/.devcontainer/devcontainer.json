@@ -10,7 +10,7 @@
         "gamunu.vscode-yarn",
         "loiane.ts-extension-pack",
         "mike-co.import-sorter",
-        "dbaeumer.vscode-eslint",
+        //"dbaeumer.vscode-eslint",
         "oderwat.indent-rainbow"
     ]
 }
