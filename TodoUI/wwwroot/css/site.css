@@ -30,6 +30,8 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--background);
+    color: var(--font-color);
 }
 
 h1:focus {
@@ -46,11 +48,6 @@ a, .btn-link {
 }
 
 .table {
-    color: var(--font-color);
-}
-
-body {
-    background: var(--background);
     color: var(--font-color);
 }
 
