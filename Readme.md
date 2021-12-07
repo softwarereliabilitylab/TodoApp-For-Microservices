@@ -148,7 +148,7 @@ After opening, select `Reopen in Container` in the notification at the bottom ri
 |  Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
 | :-----: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :---------: |
 | TodoApi | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoDB    |
-| TodoDB  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi   |
+| TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi   |
 
 ## Configure
 
