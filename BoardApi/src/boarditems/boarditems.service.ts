@@ -20,6 +20,7 @@ export class BoarditemsService {
     newBoarditem.ip = ip;
     newBoarditem.comment = comment;
     newBoarditem.date = new Date();
+    newBoarditem.isChange = false;
     this.boarditemsRepository.insert(newBoarditem);
     return newBoarditem;
   }
@@ -29,6 +30,7 @@ export class BoarditemsService {
     newBoarditem.name = name;
     newBoarditem.ip = ip;
     newBoarditem.comment = comment;
+    newBoarditem.isChange = true;
     this.boarditemsRepository.update(id, newBoarditem);
     return newBoarditem;
   }

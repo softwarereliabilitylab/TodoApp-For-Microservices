@@ -16,4 +16,7 @@ export class Boarditem {
 
   @Column({ default: new Date() })
   date: Date;
+
+  @Column({ default: false })
+  isChange: boolean;
 }
