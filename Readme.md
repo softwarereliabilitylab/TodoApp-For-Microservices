@@ -163,8 +163,6 @@ Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
 
 After opening, select `Reopen in Container` in the notification at the bottom right.
 
-BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a terminal.
-
 ### DEV Container
 
 |   Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
@@ -214,10 +212,11 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 
 ### TodoUI
 
-|   ENV   |           Default Value           |       Type        |   Description   | Enable/Disable |
-| :-----: | :-------------------------------: | :---------------: | :-------------: | :------------: |
-|  urls   |           http://*:5000           | Internal Endpoint | TodoUI Endpoint |     Enable     |
-| todoapi | http://todoapi:5000/api/todoitems |        URL        |   TodoApi URL   |     Enable     |
+|   ENV    |            Default Value            |       Type        |   Description   | Enable/Disable |
+| :------: | :---------------------------------: | :---------------: | :-------------: | :------------: |
+|   urls   |            http://*:5000            | Internal Endpoint | TodoUI Endpoint |     Enable     |
+| todoapi  |  http://todoapi:5000/api/todoitems  |        URL        |   TodoApi URL   |     Enable     |
+| boardapi | http://boardapi:3000/api/boarditems |        URL        |  BoardApi URL   |     Enable     |
 
 - PWA Support (Except offline, `https` configuration required except localhost)
 - Dark-Mode Support (Depends on device settings)
@@ -227,6 +226,7 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 - / -> TodoApi
 - /todo -> TodoApi
 - /weather -> External Weather WebAPI
+- /board -> BoardApi
 
 ### TodoEndpoint
 

@@ -8,6 +8,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 
+//ADD Get IP ADDR
+builder.Services.AddHttpContextAccessor();
+
 // Get URL Todo
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true)
@@ -23,6 +26,16 @@ todoapi.Url = config.GetValue<String>("todoapi");
 builder.Services.AddSingleton(_ =>
 {
     return todoapi;
+});
+
+// DI Board URL
+var boardapi = new BoardApi();
+
+boardapi.Url = config.GetValue<String>("boardapi");
+
+builder.Services.AddSingleton(_ =>
+{
+    return boardapi;
 });
 
 var app = builder.Build();

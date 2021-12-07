@@ -9,7 +9,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateBoarditemDto } from './dto/create-boarditem.dto';
-import { UpdateBoarditemDto } from './dto/update-boarditem.dto';
 import { BoarditemsService } from './boarditems.service';
 import { Param } from '@nestjs/common';
 
@@ -35,8 +34,11 @@ export class BoarditemsController {
   }
 
   @Put(':id')
-  updateBoarditem(@Body() updateBoarditemDto: UpdateBoarditemDto) {
-    const { id, name, ip, comment } = updateBoarditemDto;
+  updateBoarditem(
+    @Param('id') id,
+    @Body() createBoarditemDto: CreateBoarditemDto,
+  ) {
+    const { name, ip, comment } = createBoarditemDto;
     return this.service.updateBoarditem(id, name, ip, comment);
   }
 
