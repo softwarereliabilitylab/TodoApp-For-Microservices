@@ -1,0 +1,16 @@
+{
+    "name": "boardapi-dev",
+    "dockerComposeFile": [
+        "./docker-compose.yml"
+    ],
+    "service": "boardapi-dev",
+    "workspaceFolder": "/BoardApi",
+    "extensions": [
+        "visualstudioexptteam.vscodeintellicode",
+        "gamunu.vscode-yarn",
+        "loiane.ts-extension-pack",
+        "mike-co.import-sorter",
+        //"dbaeumer.vscode-eslint",
+        "oderwat.indent-rainbow"
+    ]
+}

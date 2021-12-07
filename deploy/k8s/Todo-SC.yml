@@ -26,3 +26,47 @@ spec:
               operator: In
               values:
                 - node-name # Need Change Deploy Node Name
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: boarddb-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: tododb-sc
+  local:
+    path: /mnt/kubernetes/boarddb
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node-name # Need Change Deploy Node Name
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: boarddb-data-pv
+spec:
+  capacity:
+    storage: 15Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: tododb-sc
+  local:
+    path: /mnt/kubernetes/boarddb-data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - node-name # Need Change Deploy Node Name

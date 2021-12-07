@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boardapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boardapi
+  template:
+    metadata:
+      labels:
+        app: boardapi
+    spec:
+      containers:
+        - name: boardapi
+          image: boardapi
+          env:
+            - name: TYPEORM_CONNECTION
+              value: "postgres"
+            - name: TYPEORM_HOST
+              value: "boarddb"
+            - name: TYPEORM_USERNAME
+              value:  "boardapi"
+            - name: TYPEORM_PASSWORD
+              value:  "boardapi"
+            - name: TYPEORM_DATABASE
+              value:  "boardapi"
+            - name: TYPEORM_PORT
+              value:  "5432"
+            - name: TYPEORM_SYNCHRONIZE
+              value: "true"
+            - name: TYPEORM_LOGGING
+              value:  "false"
+            - name: TYPEORM_ENTITIES
+              value:  "dist/**/*.entity.js"
+            - name: TYPEORM_MIGRATIONS
+              value:  "dist/migration/**/*.js"
+
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boardapi
+spec:
+  type: ClusterIP
+  ports:
+    - name: boardapi
+      port: 3000
+      targetPort: 3000
+  #      nodePort: 31003 # Debug
+  #      protocol: TCP
+  selector:
+    app: boardapi

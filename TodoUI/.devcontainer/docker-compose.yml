@@ -52,17 +52,62 @@ services:
       - MYSQL_USER=todoapi
       - MYSQL_PASSWORD=todoapi
 
+  boardapi:
+    build:
+      context: ../../BoardApi
+    image: boardapi
+    container_name: boardapi
+    environment:
+      - TYPEORM_CONNECTION=postgres
+      - TYPEORM_HOST=boarddb
+      - TYPEORM_USERNAME=boardapi
+      - TYPEORM_PASSWORD=boardapi
+      - TYPEORM_DATABASE=boardapi
+      - TYPEORM_PORT=5432
+      - TYPEORM_SYNCHRONIZE=true
+      - TYPEORM_LOGGING=false
+      - TYPEORM_ENTITIES=dist/**/*.entity.js
+      - TYPEORM_MIGRATIONS=dist/migration/**/*.js
+    #ports: # For Debug
+    #  - "3000:3000"
+    depends_on:
+      - boarddb
+
+  boarddb:
+    image: postgres:alpine
+    container_name: boarddb
+    environment:
+        - POSTGRES_USER=boardapi
+        - POSTGRES_PASSWORD=boardapi
+        - PGPASSWORD=boardapi
+        - POSTGRES_DB=boardapi
+    volumes:
+        - type: volume
+          source: boarddb
+          target: /var/lib/postgresql
+        - type: volume
+          source: boarddb-data
+          target: /var/lib/postgresql/data
+
   tododb-console:
+  #boarddb-console:
     image: adminer
     container_name: tododb-console
+    #container_name: boarddb-console
     ports:
       - "8080:8080"
     environment:
       - ADMINER_DEFAULT_SERVER=tododb
+      #- ADMINER_DEFAULT_SERVER=boarddb
     depends_on:
       - tododb
+      #- boarddb
 
 
 volumes:
   tododb-data:
     name: tododb-data
+  boarddb:
+    name: boarddb
+  boarddb-data:
+    name: boarddb-data
