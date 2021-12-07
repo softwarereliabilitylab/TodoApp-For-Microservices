@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boarddb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boarddb
+  template:
+    metadata:
+      labels:
+        app: boarddb
+    spec:
+      containers:
+        - name: boarddb
+          image: postgres:alpine
+          env:
+            - name: PGPASSWORD
+              value: boardapi
+            - name: POSTGRES_DB
+              value: boardapi
+            - name: POSTGRES_USER
+              value: boardapi
+            - name: POSTGRES_PASSWORD
+              value: boardapi
+          ports:
+            - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boarddb
+spec:
+  type: ClusterIP
+  ports:
+    - name: boarddb
+      port: 5432
+      targetPort: 5432
+  #      nodePort: 31432 # Debug
+  #      protocol: TCP
+  selector:
+    app: boarddb

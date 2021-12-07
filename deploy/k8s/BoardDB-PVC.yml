@@ -1,0 +1,79 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: boarddb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tododb-sc
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: boarddb-data-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tododb-sc
+  resources:
+    requests:
+      storage: 15Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boarddb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boarddb
+  template:
+    metadata:
+      labels:
+        app: boarddb
+    spec:
+      containers:
+        - name: boarddb
+          image: postgres:alpine
+          env:
+            - name: PGPASSWORD
+              value: boardapi
+            - name: POSTGRES_DB
+              value: boardapi
+            - name: POSTGRES_USER
+              value: boardapi
+            - name: POSTGRES_PASSWORD
+              value: boardapi
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql"
+              name: boarddb
+            - mountPath: "/var/lib/postgresql/data"
+              name: boarddb-data
+      volumes:
+        - name: boarddb
+          persistentVolumeClaim:
+            claimName: boarddb-pvc
+        - name: boarddb-data
+          persistentVolumeClaim:
+            claimName: boarddb-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boarddb
+spec:
+  type: ClusterIP
+  ports:
+    - name: boarddb
+      port: 5432
+      targetPort: 5432
+  #      nodePort: 31432 # Debug
+  #      protocol: TCP
+  selector:
+    app: boarddb
