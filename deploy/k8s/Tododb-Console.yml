@@ -2,22 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tododb-console-deployment
+  #name: boarddb-console-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tododb-console
+      #app: boarddb-console
   template:
     metadata:
       labels:
         app: tododb-console
+        #app: boarddb-console
     spec:
       containers:
         - name: tododb-console
+        #- name: boarddb-console
           image: adminer
           env:
             - name: ADMINER_DEFAULT_SERVER
               values: tododb
+            #- name: ADMINER_DEFAULT_SERVER
+            #  values: boarddb
           ports:
             - containerPort: 8080
 ---
@@ -25,13 +31,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tododb-console
+  #name: boarddb-console
 spec:
   type: NodePort
   ports:
     - name: tododb-console
+    #- name: boarddb-console
       port: 8080
       targetPort: 8080
       nodePort: 31880
       protocol: TCP
   selector:
     app: tododb-console
+    #app: boarddb-console

@@ -1,0 +1,17 @@
+{
+    "type": "postgres",
+    "host": "boarddb",
+    "port": 5432,
+    "username": "boardapi",
+    "password": "boardapi",
+    "database": "boardapi",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["dist/**/*.entity.js"],
+    "migrations": ["dist/migration/**/*.js"],
+    "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+    }
+}

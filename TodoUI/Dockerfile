@@ -12,6 +12,7 @@ EXPOSE 5000
 
 ENV urls="http://*:5000"
 ENV todoapi="http://todoapi:5000/api/todoitems"
+ENV boardapi="http://boardapi:3000/api/boarditems"
 
 RUN apk update && apk add --no-cache libgcc libstdc++ icu 
 

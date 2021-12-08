@@ -4,23 +4,43 @@ This project is a todo application that uses a microservice architecture.
 
 It was created for learning microservice architecture.
 
+The base minimum configuration is [v1.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v1.x.x-Minimum-Configuration).
+
+Additional microservices and external WebAPI examples are in [v2.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/master).
+
 ![TodoUI](./images/TodoUI.png)
 
 ![TodoUI Dark](./images/TodoUI-Dark.png)
 
+![TodoUI Sample External](./images/TodoUI-Sample-External.png)
+
+![TodoUI Sample Additional](./images/TodoUI-Sample-Additional.png)
+
 ## Structure
 
-|           Name            |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       | Dependences |
-| :-----------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ------------------------------------------------- | :---------: |
-|          TodoApi          |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo.                             |   TodoDB    |
-|          TodoUI           |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support. Dark-Mode Support |   TodoApi   |
-|       TodoEndpoint        | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.             |   TodoUI    |
-|          TodoDB           |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |    ----     |
-| TodoDB-Console (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB Optional UI                                |   TodoDB    |
+|                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |   Dependences   |
+| :----------------------------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ------------------------------------------------- | :-------------: |
+|                  TodoApi                   |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo.                             |     TodoDB      |
+|                   TodoUI                   |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support. Dark-Mode Support |     TodoApi     |
+|                TodoEndpoint                | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.             |     TodoUI      |
+|                   TodoDB                   |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |      ----       |
+| TodoDB-Console(BoardDB-Console) (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB(BoardDB) Optional UI                       | TodoDB(BoardDB) |
+
+### Additional Microservices/External WebAPI Sample
+
+|   Name    |  Type  | Languages  | Environment |   OS   | Framework | Description                            | Dependences |
+| :-------: | :----: | :--------: | :---------: | :----: | :-------: | -------------------------------------- | :---------: |
+| WeaterApi | WebAPI |    ----    |    ----     |  ----  |   ----    | External WebAPI Sample                 |    ----     |
+| BoardApi  | WebAPI | TypeScript |   Node.js   | alpine |  NestJS   | Additional Microservices WebAPI Sample |   BoardDB   |
+|  BoardDB  |   DB   |    ----    | PostgreSQL  | alpine |   ----    | DB For BoardApi.                       |    ----     |
 
 ### Access Flow
 
 TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
+
+                       -> External Weather WebAPI
+
+                       -> BoardApi -> BoardDB
 
 ## Deployment
 
@@ -95,6 +115,8 @@ SKAFFOLD_DEFAULT_REPO=$DOCKER_REGISTRY skaffold -n todoapp run
 cd ./deploy/k8s/
 
 kubectl apply -n todoapp -f TodoDB-PVC.yml
+
+kubectl apply -n todoapp -f BoardDB-PVC.yml
 ```
 
 #### Access using Ingress
@@ -123,7 +145,7 @@ cd TodoApp-For-Microservices/deploy/k8s/
 kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Console.yml
 ```
 
-After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapi for database.)
+After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb or boarddb for Server, todoapi or boardapi for user, toadoapi or boardapi for password, and todoapi or boardapi for database.)
 
 ## Development
 
@@ -137,7 +159,7 @@ Requirements
 
 ![TodoUI-Dev](./images/TodoUI-Dev.png)
 
-### TodoApi/TodoUI
+### TodoApi/TodoUI/BoardApi
 
 Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
 
@@ -145,10 +167,11 @@ After opening, select `Reopen in Container` in the notification at the bottom ri
 
 ### DEV Container
 
-|  Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
-| :-----: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :---------: |
-| TodoApi | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoDB    |
-| TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi   |
+|   Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
+| :------: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :---------: |
+| TodoApi  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoDB    |
+|  TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi   |
+| BoardApi | alpine |  lts-alpine   |                                           node image                                            |  BoardApi   |
 
 ## Configure
 
@@ -191,24 +214,34 @@ After opening, select `Reopen in Container` in the notification at the bottom ri
 
 ### TodoUI
 
-|   ENV   |           Default Value           |       Type        |   Description   | Enable/Disable |
-| :-----: | :-------------------------------: | :---------------: | :-------------: | :------------: |
-|  urls   |           http://*:5000           | Internal Endpoint | TodoUI Endpoint |     Enable     |
-| todoapi | http://todoapi:5000/api/todoitems |        URL        |   TodoApi URL   |     Enable     |
+|   ENV    |            Default Value            |       Type        |   Description   | Enable/Disable |
+| :------: | :---------------------------------: | :---------------: | :-------------: | :------------: |
+|   urls   |            http://*:5000            | Internal Endpoint | TodoUI Endpoint |     Enable     |
+| todoapi  |  http://todoapi:5000/api/todoitems  |        URL        |   TodoApi URL   |     Enable     |
+| boardapi | http://boardapi:3000/api/boarditems |        URL        |  BoardApi URL   |     Enable     |
 
 - PWA Support (Except offline, `https` configuration required except localhost)
 - Dark-Mode Support (Depends on device settings)
 
+#### Mapping
+
+- / -> TodoApi
+- /todo -> TodoApi
+- /weather -> External Weather WebAPI
+- /board -> BoardApi
+
 ### TodoEndpoint
 
-|     ENV     |           Default Value           |  Type   |   Description   | Enable/Disable |
-| :---------: | :-------------------------------: | :-----: | :-------------: | :------------: |
-|   todoui    |        http://todoui:5000         |   URL   |   TodoUI URL    |     Enable     |
-| todoui_map  |                 /                 | Mapping | TodoUI Mapping  |     Enable     |
-|   todoapi   | http://todoapi:5000/api/todoitems |   URL   |   TodoApi URL   |    Disable     |
-| todoapi_map |          /api/todoitems           | Mapping | TodoApi Mapping |    Disable     |
+|     ENV      |            Default Value            |  Type   |   Description    | Enable/Disable |
+| :----------: | :---------------------------------: | :-----: | :--------------: | :------------: |
+|    todoui    |         http://todoui:5000          |   URL   |    TodoUI URL    |     Enable     |
+|  todoui_map  |                  /                  | Mapping |  TodoUI Mapping  |     Enable     |
+|   todoapi    |  http://todoapi:5000/api/todoitems  |   URL   |   TodoApi URL    |    Disable     |
+| todoapi_map  |           /api/todoitems            | Mapping | TodoApi Mapping  |    Disable     |
+|   boardapi   | http://boardapi:3000/api/boarditems |   URL   |   BoardApi URL   |    Disable     |
+| boardapi_map |           /api/boarditems           | Mapping | BoardApi Mapping |    Disable     |
 
-If you want to expose the TodoApi to the External, you will need to change [default.conf.template](./TodoEndpoint/default.conf.template) and set the environment variables(`todoapi` and `todoapi_map`).
+If you want to expose the TodoApi to the External, you will need to change [default.conf.template](./TodoEndpoint/default.conf.template) and set the environment variables(`todoapi` and `todoapi_map`, `boardapi` and `boardapi_map`).
 
 ### TodoDB
 
@@ -219,8 +252,76 @@ If you want to expose the TodoApi to the External, you will need to change [defa
 |     MYSQL_USER      |    todoapi    |   DB USER   |     TodoDB USER      |     Enable     |
 |   MYSQL_PASSWORD    |    todoapi    | DB Password |   TodoDB Password    |     Enable     |
 
-### TodoDB-Console (Optional)
+### TodoDB-Console(BoardDB-Console) (Optional)
 
-|          ENV           | Default Value |       Type        |   Description   | Enable/Disable |
-| :--------------------: | :-----------: | :---------------: | :-------------: | :------------: |
-| ADMINER_DEFAULT_SERVER |    tododb     | Internal Endpoint | TodoDB Endpoint |     Enable     |
+|          ENV           |  Default Value  |       Type        |       Description        | Enable/Disable |
+| :--------------------: | :-------------: | :---------------: | :----------------------: | :------------: |
+| ADMINER_DEFAULT_SERVER | tododb(boarddb) | Internal Endpoint | TodoDB(BoardDB) Endpoint |     Enable     |
+
+### External WebAPI Sample
+
+#### WebAPI Json URL Format
+
+- https://www.jma.go.jp/bosai/forecast/data/overview_forecast/${ID}.json
+
+#### GET ID Json URL
+
+- http://www.jma.go.jp/bosai/common/const/area.json
+
+ex)
+https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
+
+<q><cite>出典:気象庁ホームページ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json</cite></q>
+
+### BoardApi
+
+|         ENV         |     Default Value      |          Type           |          Description          | Enable/Disable |
+| :-----------------: | :--------------------: | :---------------------: | :---------------------------: | :------------: |
+| TYPEORM_CONNECTION  |        postgres        |       DB Provider       | Select DB Provider PostgreSQL |     Enable     |
+|    TYPEORM_HOST     |        boarddb         |       DB HostName       |   BoardDB DNS or IP Address   |     Enable     |
+|  TYPEORM_USERNAME   |        boardapi        |      DB User Name       |       BoardDB User Name       |     Enable     |
+|  TYPEORM_PASSWORD   |        boardapi        |       DB Password       |       BoardDB Password        |     Enable     |
+|  TYPEORM_DATABASE   |        boardapi        |         DB Name         |        BoardDB DB Name        |     Enable     |
+|    TYPEORM_PORT     |          5432          |     DB Port Number      |      BoardDB Port Number      |     Enable     |
+| TYPEORM_SYNCHRONIZE |          true          | DB Migration at Startup | BoardDB Migration at Startup  |     Enable     |
+|   TYPEORM_LOGGING   |         false          |    DB Logging on API    |     False for Performance     |     Enable     |
+|  TYPEORM_ENTITIES   |  dist/**/*.entity.js   |     Entity JS file      |       No Need to Change       |     Enable     |
+| TYPEORM_MIGRATIONS  | dist/migration/**/*.js |  DB Migration JS file   |       No Need to Change       |     Enable     |
+
+#### GET/POST
+
+- /api/boarditems
+
+#### PUT/DELETE
+
+- /api/boarditems/${id}
+
+#### Request Header
+
+- Content-Type: application/json
+
+#### Type
+
+- json
+
+##### Json example
+
+```json
+{
+    "id": 1, //long Type //Except POST
+    "name": "YMD", //string Type
+    "ip": "192.0.0.1", //string Type
+    "comment": "Test", //string Type
+    "date": "", //Date Type //Defaults to the date you posted. //Automatic Setting //Cannot be changed by user
+    "isChange": true //boolean type //Default false //Update true //Automatic Setting //Cannot be changed by user
+}
+```
+
+### BoardDB
+
+|        ENV        | Default Value |    Type     |      Description      | Enable/Disable |
+| :---------------: | :-----------: | :---------: | :-------------------: | :------------: |
+|   POSTGRES_USER   |   boardapi    |   DB USER   |     BoardDB USER      |     Enable     |
+| POSTGRES_PASSWORD |   boardapi    | DB Password |   BoardDB Password    |     Enable     |
+|    PGPASSWORD     |   boardapi    | DB Password | BoardDB Root Password |     Enable     |
+|    POSTGRES_DB    |   boardapi    |   DB Name   |     BoardDB Name      |     Enable     |

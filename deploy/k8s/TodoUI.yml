@@ -20,6 +20,8 @@ spec:
               value: http://*:5000
             - name: todoapi
               value: http://todoapi:5000/api/todoitems
+            - name: boardapi
+              value: http://boardapi:3000/api/boarditems
           ports:
             - containerPort: 5000
 ---

@@ -6,6 +6,11 @@ build:
   artifacts:
     - image: todoapi
       context: ./TodoApi
+
+    #Additional Microservices
+    - image: boardapi
+      context: ./BoardApi
+
     - image: todoui
       context: ./TodoUI
     - image: todoendpoint
@@ -18,6 +23,12 @@ deploy:
       #- ./deploy/k8s/TodoDB-PVC.yml # exclusion
       - ./deploy/k8s/TodoDB.yml # exclusion
       - ./deploy/k8s/TodoApi.yml
+
+      # Additional Microservices
+      #- ./deploy/k8s/BoardDB-PVC.yml # exclusion
+      - ./deploy/k8s/BoardDB.yml # exclusion
+      - ./deploy/k8s/BoardApi.yml
+
       - ./deploy/k8s/TodoUI.yml
       - ./deploy/k8s/TodoEndpoint.yml
       #- ./deploy/k8s/Todo-Console.yml
