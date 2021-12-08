@@ -7,7 +7,7 @@
 
 <PageTitle>Board</PageTitle>
 
-<h1>TodoUI</h1>
+<h1>Board</h1>
 
 <label>Name</label>
 <input type="text" @bind="name" />
@@ -40,8 +40,11 @@ else
                     <td>@BoardItem.Ip</td>
                     <td>@BoardItem.Comment</td>
                     <td>@BoardItem.IsChange</td>
-                    <td><button @onclick="() => Update(BoardItem.Id,BoardItem.Name,BoardItem.Ip)">Update</button></td>
-                    <td><button @onclick="()=> Delete(BoardItem.Id)">Delete</button></td>
+                    @if (IPAddress == BoardItem.Ip)
+                    {
+                        <td><button @onclick="() => Update(BoardItem.Id,BoardItem.Name,BoardItem.Ip)">Update</button></td>
+                        <td><button @onclick="()=> Delete(BoardItem.Id)">Delete</button></td>
+                    }
                 </tr>
             }
         </tbody>

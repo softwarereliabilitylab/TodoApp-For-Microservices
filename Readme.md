@@ -14,6 +14,8 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ![TodoUI Sample External](./images/TodoUI-Sample-External.png)
 
+![TodoUI Sample Additional](./images/TodoUI-Sample-Additional.png)
+
 ## Structure
 
 |                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |   Dependences   |
@@ -143,7 +145,7 @@ cd TodoApp-For-Microservices/deploy/k8s/
 kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Console.yml
 ```
 
-After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapi for database.)
+After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb or boarddb for Server, todoapi or boardapi for user, toadoapi or boardapi for password, and todoapi or boardapi for database.)
 
 ## Development
 

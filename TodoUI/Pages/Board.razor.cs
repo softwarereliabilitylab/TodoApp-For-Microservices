@@ -11,7 +11,18 @@ public class BoardBase : ComponentBase
     {
         if (firstRender)
         {
-            IPAddress = contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            IPAddress = contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
+
+            if (String.IsNullOrWhiteSpace(IPAddress))
+            {
+                IPAddress = contextAccessor?.HttpContext?.Request.Headers["X-Forwarded-For"].ToString();
+            }
+
+            if (String.IsNullOrWhiteSpace(IPAddress))
+            {
+                IPAddress = "Dummy";
+            }
+
             StateHasChanged();
         }
     }
