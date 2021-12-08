@@ -1,3 +1,5 @@
+using System.Net.Sockets;
+using System.Net;
 using Microsoft.AspNetCore.HttpOverrides;
 using TodoUI.DI;
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
+
+//ADD Get IP ADDR
+builder.Services.AddHttpContextAccessor();
 
 // Get URL Todo
 var config = new ConfigurationBuilder()
@@ -25,6 +30,22 @@ builder.Services.AddSingleton(_ =>
     return todoapi;
 });
 
+// DI Board URL
+var boardapi = new BoardApi();
+
+boardapi.Url = config.GetValue<String>("boardapi");
+
+builder.Services.AddSingleton(_ =>
+{
+    return boardapi;
+});
+
+var todoendopint = builder.Configuration.GetValue("todoendopint", "todoendopint");
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        options.KnownProxies.Add(IPAddress.Parse(todoendopint))
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +58,7 @@ if (!app.Environment.IsDevelopment())
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+
 });
 
 app.UseAuthentication();

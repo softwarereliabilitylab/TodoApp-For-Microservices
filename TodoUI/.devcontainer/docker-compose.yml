@@ -13,6 +13,7 @@ services:
     environment:
       - urls=http://*:5000
       - todoapi=http://todoapi:5000/api/todoitems
+      - boardapi=http://boardapi:3000/api/boarditems
     volumes:
       - type: bind
         source: ../

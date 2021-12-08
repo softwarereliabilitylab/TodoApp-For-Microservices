@@ -14,6 +14,8 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ![TodoUI Sample External](./images/TodoUI-Sample-External.png)
 
+![TodoUI Sample Additional](./images/TodoUI-Sample-Additional.png)
+
 ## Structure
 
 |                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |   Dependences   |
@@ -143,7 +145,7 @@ cd TodoApp-For-Microservices/deploy/k8s/
 kubectl apply -n $DEPLOY_NAMESPACE -f Tododb-Console.yml
 ```
 
-After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb for Server, todoapi for user, toadoapi for password, and todoapi for database.)
+After deployment, it can be accessed on `Node IP:31880` using the node port.(The default is tododb or boarddb for Server, todoapi or boardapi for user, toadoapi or boardapi for password, and todoapi or boardapi for database.)
 
 ## Development
 
@@ -162,8 +164,6 @@ Requirements
 Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
 
 After opening, select `Reopen in Container` in the notification at the bottom right.
-
-BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a terminal.
 
 ### DEV Container
 
@@ -214,10 +214,11 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 
 ### TodoUI
 
-|   ENV   |           Default Value           |       Type        |   Description   | Enable/Disable |
-| :-----: | :-------------------------------: | :---------------: | :-------------: | :------------: |
-|  urls   |           http://*:5000           | Internal Endpoint | TodoUI Endpoint |     Enable     |
-| todoapi | http://todoapi:5000/api/todoitems |        URL        |   TodoApi URL   |     Enable     |
+|   ENV    |            Default Value            |       Type        |   Description   | Enable/Disable |
+| :------: | :---------------------------------: | :---------------: | :-------------: | :------------: |
+|   urls   |            http://*:5000            | Internal Endpoint | TodoUI Endpoint |     Enable     |
+| todoapi  |  http://todoapi:5000/api/todoitems  |        URL        |   TodoApi URL   |     Enable     |
+| boardapi | http://boardapi:3000/api/boarditems |        URL        |  BoardApi URL   |     Enable     |
 
 - PWA Support (Except offline, `https` configuration required except localhost)
 - Dark-Mode Support (Depends on device settings)
@@ -227,6 +228,7 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 - / -> TodoApi
 - /todo -> TodoApi
 - /weather -> External Weather WebAPI
+- /board -> BoardApi
 
 ### TodoEndpoint
 

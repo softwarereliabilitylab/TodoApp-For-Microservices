@@ -1,0 +1,122 @@
+﻿@page "/board"
+@using TodoUI.Data
+@inject HttpClient Http
+@using TodoUI.DI
+@inject BoardApi boardapi
+@inherits BoardBase
+
+<PageTitle>Board</PageTitle>
+
+<h1>Board</h1>
+
+<label>Name</label>
+<input type="text" @bind="name" />
+<label>Comment</label>
+<input type="text" @bind="comment" />
+<button @onclick="Add">Add</button>
+
+@if (boardItems is null || IPAddress is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Ip</th>
+            <th>Comment</th>
+            <th>IsChange</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var BoardItem in boardItems)
+            {
+                <tr>
+                    <td>@BoardItem.Id</td>
+                    <td>@BoardItem.Name</td>
+                    <td>@BoardItem.Ip</td>
+                    <td>@BoardItem.Comment</td>
+                    <td>@BoardItem.IsChange</td>
+                    @if (IPAddress == BoardItem.Ip)
+                    {
+                        <td><button @onclick="() => Update(BoardItem.Id,BoardItem.Name,BoardItem.Ip)">Update</button></td>
+                        <td><button @onclick="()=> Delete(BoardItem.Id)">Delete</button></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private BoardItem[]? boardItems;
+
+    private readonly string defaultName = "名無し";
+    private string? name;
+    private string? comment;
+
+    protected override async Task OnInitializedAsync()
+    {
+        name = name ?? defaultName;
+
+        comment = null;
+
+        boardItems = await Http.GetFromJsonAsync<BoardItem[]>(boardapi.Url);
+
+        if (boardItems is not null)
+        {
+            Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
+    }
+
+    private async Task Add()
+    {
+        var BoardItem = new BoardItem() { Name = name, Ip = IPAddress, Comment = comment };
+
+        await Http.PostAsJsonAsync<BoardItem>(boardapi.Url, BoardItem);
+
+        name = name ?? defaultName;
+        comment = null;
+
+        boardItems = await Http.GetFromJsonAsync<BoardItem[]>(boardapi.Url);
+
+        if (boardItems is not null)
+        {
+            Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
+    }
+
+    public async Task Delete(long Id)
+    {
+        await Http.DeleteAsync($"{boardapi.Url}/{Id}");
+
+        boardItems = await Http.GetFromJsonAsync<BoardItem[]>(boardapi.Url);
+
+        if (boardItems is not null)
+        {
+            Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
+    }
+
+    public async Task Update(long Id, string? names, string ip)
+    {
+        name = name ?? names ?? defaultName;
+
+        var BoardItem = new BoardItem() { Name = name, Ip = ip, Comment = comment };
+
+        await Http.PutAsJsonAsync<BoardItem>($"{boardapi.Url}/{Id}", BoardItem);
+
+        comment = null;
+
+        boardItems = await Http.GetFromJsonAsync<BoardItem[]>(boardapi.Url);
+
+        if (boardItems is not null)
+        {
+            Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
+    }
+}
