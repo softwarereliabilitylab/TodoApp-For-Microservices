@@ -32,7 +32,7 @@ services:
       context: ../../TodoApi
     image: todoapi
     container_name: todoapi
-    #ports:# For Debug
+    #ports: # For Debug
     #  - "5002:5000"
     environment:
       - urls=http://*:5000

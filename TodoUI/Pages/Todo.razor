@@ -56,6 +56,11 @@ else
         name = null;
         iscomplete = false;
         todoItems = await Http.GetFromJsonAsync<TodoItem[]>(todoapi.Url);
+
+        if (todoItems is not null)
+        {
+            Array.Sort(todoItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
     }
 
     private void toggle()
@@ -73,6 +78,11 @@ else
         name = null;
 
         todoItems = await Http.GetFromJsonAsync<TodoItem[]>(todoapi.Url);
+
+        if (todoItems is not null)
+        {
+            Array.Sort(todoItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
     }
 
     public async Task Delete(long Id)
@@ -80,6 +90,11 @@ else
         await Http.DeleteAsync($"{todoapi.Url}/{Id}");
 
         todoItems = await Http.GetFromJsonAsync<TodoItem[]>(todoapi.Url);
+
+        if (todoItems is not null)
+        {
+            Array.Sort(todoItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
     }
 
     public async Task Update(long Id, string? names)
@@ -91,5 +106,10 @@ else
         name = null;
 
         todoItems = await Http.GetFromJsonAsync<TodoItem[]>(todoapi.Url);
+
+        if (todoItems is not null)
+        {
+            Array.Sort(todoItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+        }
     }
 }
