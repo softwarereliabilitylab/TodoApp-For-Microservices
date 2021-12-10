@@ -61,7 +61,7 @@ else
     private readonly string defaultcityCode = "130000";
     private string? cityCode = null;
 
-    private HttpResponseMessage? checkStatus;
+    private HttpResponseMessage checkStatus = new HttpResponseMessage();
 
     private string? sourceURL;
 

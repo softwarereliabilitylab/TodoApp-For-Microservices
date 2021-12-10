@@ -6,5 +6,6 @@ public class BoardItem
     public string? Name { get; set; }
     public string? Ip { get; set; }
     public string? Comment { get; set; }
+    public DateTime Date { get; set; }
     public bool IsChange { get; set; }
 }
