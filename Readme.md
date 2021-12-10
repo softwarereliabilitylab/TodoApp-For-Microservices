@@ -312,7 +312,7 @@ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
     "name": "YMD", //string Type
     "ip": "192.0.0.1", //string Type
     "comment": "Test", //string Type
-    "date": "", //Date Type //Defaults to the date you posted. //Automatic Setting //Cannot be changed by user
+    "date": "2021-12-10T05:34:41.275Z", //Date Type //Defaults to the date you posted. //Automatic Setting //Cannot be changed by user
     "isChange": true //boolean type //Default false //Update true //Automatic Setting //Cannot be changed by user
 }
 ```

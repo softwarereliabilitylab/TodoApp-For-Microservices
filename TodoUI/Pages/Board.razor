@@ -28,6 +28,7 @@ else
             <th>Name</th>
             <th>Ip</th>
             <th>Comment</th>
+            <th>Date</th>
             <th>IsChange</th>
         </tr>
     </thead>
@@ -39,6 +40,7 @@ else
                     <td>@BoardItem.Name</td>
                     <td>@BoardItem.Ip</td>
                     <td>@BoardItem.Comment</td>
+                    <td>@BoardItem.Date</td>
                     <td>@BoardItem.IsChange</td>
                     @if (IPAddress == BoardItem.Ip)
                     {

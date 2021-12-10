@@ -40,12 +40,6 @@ builder.Services.AddSingleton(_ =>
     return boardapi;
 });
 
-var todoendopint = builder.Configuration.GetValue("todoendopint", "todoendopint");
-
-builder.Services.Configure<ForwardedHeadersOptions>(options =>
-        options.KnownProxies.Add(IPAddress.Parse(todoendopint))
-);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

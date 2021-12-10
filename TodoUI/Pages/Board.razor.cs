@@ -7,7 +7,7 @@ public class BoardBase : ComponentBase
     IHttpContextAccessor? contextAccessor { get; set; }
     public string? IPAddress { get; set; } = null;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
@@ -15,7 +15,7 @@ public class BoardBase : ComponentBase
 
             if (String.IsNullOrWhiteSpace(IPAddress))
             {
-                IPAddress = contextAccessor?.HttpContext?.Request.Headers["X-Forwarded-For"].ToString();
+                IPAddress = contextAccessor?.HttpContext?.Request?.Headers["X-Forwarded-For"].FirstOrDefault()?.ToString();
             }
 
             if (String.IsNullOrWhiteSpace(IPAddress))
