@@ -1,0 +1,30 @@
+div.InputContents{
+    position: fixed;
+    background-color: var(--background) !important;
+}
+
+span.Info{
+    text-align: justify;
+    white-space: nowrap;
+}
+
+span.ID{
+    margin-right: 30px;
+}
+
+span.Name{
+    margin-right: 30px;
+}
+
+span.IP{
+    margin-right: 30px;
+}
+
+span.Date{
+    margin-right: 30px;
+}
+
+span.IsChange{
+    margin-right: 30px;
+    color: gray;
+}

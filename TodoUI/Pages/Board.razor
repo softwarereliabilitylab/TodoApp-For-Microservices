@@ -4,16 +4,23 @@
 @using TodoUI.DI
 @inject BoardApi boardapi
 @inherits BoardBase
+@inject IJSRuntime JSRuntime
+@using Microsoft.JSInterop
 
 <PageTitle>Board</PageTitle>
 
-<h1>Board</h1>
+<div class="InputContents">
 
-<label>Name</label>
-<input type="text" @bind="name" />
-<label>Comment</label>
-<input type="text" @bind="comment" />
-<button @onclick="Add">Add</button>
+    <h1>Board</h1>
+
+    <label>Name</label>
+    <input type="text" @bind="name" />
+    <label>Comment</label>
+    <input type="text" @bind="comment" />
+    <button @onclick="Add">Add</button>
+</div>
+
+<br><br><br><br>
 
 @if (boardItems is null || IPAddress is null)
 {
@@ -21,36 +28,32 @@
 }
 else
 {
-    <table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Ip</th>
-            <th>Comment</th>
-            <th>Date</th>
-            <th>IsChange</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var BoardItem in boardItems)
-            {
-                <tr>
-                    <td>@BoardItem.Id</td>
-                    <td>@BoardItem.Name</td>
-                    <td>@BoardItem.Ip</td>
-                    <td>@BoardItem.Comment</td>
-                    <td>@BoardItem.Date</td>
-                    <td>@BoardItem.IsChange</td>
-                    @if (IPAddress == BoardItem.Ip)
-                    {
-                        <td><button @onclick="() => Update(BoardItem.Id,BoardItem.Name,BoardItem.Ip)">Update</button></td>
-                        <td><button @onclick="()=> Delete(BoardItem.Id)">Delete</button></td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    @foreach (var boardItem in boardItems)
+    {
+        <br>
+        <div class="Board">
+    <div class="Info">
+        <span class="ID">ID: @boardItem.Id</span>
+        <span class="Name">Name: @boardItem.Name</span>
+        <span class="IP">IP: @boardItem.Ip</span>
+        <span class="Date">Date: @boardItem.Date.ToString()</span>
+        @if (@boardItem.IsChange)
+                {
+                    <span class="IsChange">編集済み</span>
+                }
+
+                @if (IPAddress == boardItem.Ip)
+                {
+                    <button @onclick="() => Update(boardItem.Id,boardItem.Name,boardItem.Ip)">Update</button>
+                    <button @onclick="()=> Delete(boardItem.Id)">Delete</button>
+                }
+            </div>
+            <br>
+            @boardItem.Comment
+        </div>
+        <br>
+    }
 }
 
 @code {
@@ -72,14 +75,18 @@ else
         if (boardItems is not null)
         {
             Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
+            //foreach (var boardItem in boardItems)
+            //{
+            // await ClientDateTime(boardItem.Date);
+            //}
         }
     }
 
     private async Task Add()
     {
-        var BoardItem = new BoardItem() { Name = name, Ip = IPAddress, Comment = comment };
+        var boardItem = new BoardItem() { Name = name, Ip = IPAddress, Comment = comment };
 
-        await Http.PostAsJsonAsync<BoardItem>(boardapi.Url, BoardItem);
+        await Http.PostAsJsonAsync<BoardItem>(boardapi.Url, boardItem);
 
         name = name ?? defaultName;
         comment = null;
@@ -108,9 +115,9 @@ else
     {
         name = name ?? names ?? defaultName;
 
-        var BoardItem = new BoardItem() { Name = name, Ip = ip, Comment = comment };
+        var boardItem = new BoardItem() { Name = name, Ip = ip, Comment = comment };
 
-        await Http.PutAsJsonAsync<BoardItem>($"{boardapi.Url}/{Id}", BoardItem);
+        await Http.PutAsJsonAsync<BoardItem>($"{boardapi.Url}/{Id}", boardItem);
 
         comment = null;
 
@@ -120,5 +127,12 @@ else
         {
             Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
         }
+    }
+
+    private async Task ClientDateTime(DateTime date)
+    {
+        var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Board.razor.js");
+
+        date = await module.InvokeAsync<DateTime>("clientDateTime", date);
     }
 }
