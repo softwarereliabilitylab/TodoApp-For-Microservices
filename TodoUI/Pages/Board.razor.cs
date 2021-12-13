@@ -16,7 +16,13 @@ public class BoardBase : ComponentBase
     {
         if (firstRender)
         {
-            IPAddress = contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
+            var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Board.razor.js");
+            var Offset = await module.InvokeAsync<int>("clientTimezoneOffset");
+
+            timeSpan = TimeSpan.FromMinutes(-Offset);
+
+
+            IPAddress = await module.InvokeAsync<string>("clientIPAddr");
 
             if (String.IsNullOrWhiteSpace(IPAddress))
             {
@@ -25,13 +31,13 @@ public class BoardBase : ComponentBase
 
             if (String.IsNullOrWhiteSpace(IPAddress))
             {
-                IPAddress = "Dummy";
+                IPAddress = contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
             }
 
-            var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Board.razor.js");
-            var Offset = await module.InvokeAsync<int>("clientTimezoneOffset");
-
-            timeSpan = TimeSpan.FromMinutes(-Offset);
+            if (String.IsNullOrWhiteSpace(IPAddress))
+            {
+                IPAddress = "Dummy";
+            }
 
             StateHasChanged();
         }
