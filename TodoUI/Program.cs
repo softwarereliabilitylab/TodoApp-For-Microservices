@@ -1,5 +1,3 @@
-using System.Net.Sockets;
-using System.Net;
 using Microsoft.AspNetCore.HttpOverrides;
 using TodoUI.DI;
 

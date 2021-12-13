@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace TodoUI.Pages;
 public class BoardBase : ComponentBase
@@ -7,7 +8,11 @@ public class BoardBase : ComponentBase
     IHttpContextAccessor? contextAccessor { get; set; }
     public string? IPAddress { get; set; } = null;
 
-    protected override void OnAfterRender(bool firstRender)
+    [Inject]
+    IJSRuntime? JSRuntime { get; set; }
+    public TimeSpan? timeSpan;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
@@ -22,6 +27,11 @@ public class BoardBase : ComponentBase
             {
                 IPAddress = "Dummy";
             }
+
+            var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Board.razor.js");
+            var Offset = await module.InvokeAsync<int>("clientTimezoneOffset");
+
+            timeSpan = TimeSpan.FromMinutes(-Offset);
 
             StateHasChanged();
         }
