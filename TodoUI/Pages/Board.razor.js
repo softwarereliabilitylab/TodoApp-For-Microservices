@@ -1,3 +1,3 @@
-export function clientDateTime(date) {
-    return date.setTime(date.getTime() + 1000 * 60 * 60 * 9);
+export function clientTimezoneOffset() {
+    return new Date().getTimezoneOffset();
 }

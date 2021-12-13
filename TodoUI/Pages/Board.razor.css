@@ -3,6 +3,10 @@ div.InputContents{
     background-color: var(--background) !important;
 }
 
+div.Board{
+    border-bottom: 1px solid var(--font-color);
+}
+
 span.Info{
     text-align: justify;
     white-space: nowrap;

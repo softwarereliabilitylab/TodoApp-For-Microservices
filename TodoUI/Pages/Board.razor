@@ -28,7 +28,6 @@
 }
 else
 {
-
     @foreach (var boardItem in boardItems)
     {
         <br>
@@ -37,30 +36,35 @@ else
         <span class="ID">ID: @boardItem.Id</span>
         <span class="Name">Name: @boardItem.Name</span>
         <span class="IP">IP: @boardItem.Ip</span>
-        <span class="Date">Date: @boardItem.Date.ToString()</span>
+        <span class="Date">Date: @boardItem.Date.ToOffset(timeSpan.Value).ToString("yyyy/MM/dd tt hh:mm")</span>
         @if (@boardItem.IsChange)
                 {
-                    <span class="IsChange">編集済み</span>
+                    <span class="IsChange">Edited</span>
+                }
+
+                @if (!@boardItem.IsChange)
+                {
+                    <span class="IsChange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 }
 
                 @if (IPAddress == boardItem.Ip)
                 {
-                    <button @onclick="() => Update(boardItem.Id,boardItem.Name,boardItem.Ip)">Update</button>
+                    <button @onclick="()=> Update(boardItem.Id,boardItem.Name,boardItem.Ip)">Update</button>
                     <button @onclick="()=> Delete(boardItem.Id)">Delete</button>
                 }
             </div>
             <br>
             @boardItem.Comment
+            <br><br>
         </div>
         <br>
     }
 }
 
 @code {
-
     private BoardItem[]? boardItems;
 
-    private readonly string defaultName = "名無し";
+    private readonly string defaultName = "No Name";
     private string? name;
     private string? comment;
 
@@ -127,12 +131,5 @@ else
         {
             Array.Sort(boardItems, (a, b) => ((int)a.Id) - ((int)b.Id));
         }
-    }
-
-    private async Task ClientDateTime(DateTime date)
-    {
-        var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Board.razor.js");
-
-        date = await module.InvokeAsync<DateTime>("clientDateTime", date);
     }
 }
