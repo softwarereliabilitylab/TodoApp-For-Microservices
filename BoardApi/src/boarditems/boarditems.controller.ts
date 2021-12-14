@@ -23,7 +23,7 @@ export class BoarditemsController {
   }
 
   @Get(':id')
-  getBoarditem(@Param('id') id) {
+  getBoarditem(@Param('id') id: number) {
     return this.service.findOne(id);
   }
 
@@ -35,7 +35,7 @@ export class BoarditemsController {
 
   @Put(':id')
   updateBoarditem(
-    @Param('id') id,
+    @Param('id') id: number,
     @Body() createBoarditemDto: CreateBoarditemDto,
   ) {
     const { name, ip, comment } = createBoarditemDto;
@@ -43,7 +43,7 @@ export class BoarditemsController {
   }
 
   @Delete(':id')
-  deleteBoarditem(@Param('id') id) {
+  deleteBoarditem(@Param('id') id: number) {
     this.service.remove(id);
   }
 }

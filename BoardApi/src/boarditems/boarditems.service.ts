@@ -10,33 +10,33 @@ export class BoarditemsService {
     private boarditemsRepository: Repository<Boarditem>,
   ) {}
 
-  findAll(): Promise<Boarditem[]> {
-    return this.boarditemsRepository.find();
+  async findAll(): Promise<Boarditem[]> {
+    return await this.boarditemsRepository.find();
   }
 
-  createBoarditem(name: string, ip: string, comment: string) {
+  async createBoarditem(name: string, ip: string, comment: string) {
     const newBoarditem = new Boarditem();
     newBoarditem.name = name;
     newBoarditem.ip = ip;
     newBoarditem.comment = comment;
     newBoarditem.date = new Date();
     newBoarditem.isChange = false;
-    this.boarditemsRepository.insert(newBoarditem);
+    await this.boarditemsRepository.insert(newBoarditem);
     return newBoarditem;
   }
 
-  updateBoarditem(id: number, name: string, ip: string, comment: string) {
+  async updateBoarditem(id: number, name: string, ip: string, comment: string) {
     const newBoarditem = new Boarditem();
     newBoarditem.name = name;
     newBoarditem.ip = ip;
     newBoarditem.comment = comment;
     newBoarditem.isChange = true;
-    this.boarditemsRepository.update(id, newBoarditem);
+    await this.boarditemsRepository.update(id, newBoarditem);
     return newBoarditem;
   }
 
-  findOne(id: number): Promise<Boarditem> {
-    return this.boarditemsRepository.findOne(id);
+  async findOne(id: number): Promise<Boarditem> {
+    return await this.boarditemsRepository.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
