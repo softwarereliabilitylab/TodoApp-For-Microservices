@@ -20,7 +20,7 @@ It was created for learning microservice architecture.
 
 ### Access Flow
 
-TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
+![Access Flow](./images/Access-Flow-minimum.svg)
 
 ## Deployment
 
