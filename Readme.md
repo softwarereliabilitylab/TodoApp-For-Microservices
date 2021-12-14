@@ -37,7 +37,7 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ### Access Flow
 
-TodoEndpoint -> TodoUI -> TodoApi -> TodoDB
+![Access Flow](./images/Access-Flow-minimum.svg)
 
                        -> External Weather WebAPI
 
