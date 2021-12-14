@@ -28,11 +28,12 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ### Additional Microservices/External WebAPI Sample
 
-|   Name    |  Type  | Languages  | Environment |   OS   | Framework | Description                            | Dependences |
-| :-------: | :----: | :--------: | :---------: | :----: | :-------: | -------------------------------------- | :---------: |
-| WeaterApi | WebAPI |    ----    |    ----     |  ----  |   ----    | External WebAPI Sample                 |    ----     |
-| BoardApi  | WebAPI | TypeScript |   Node.js   | alpine |  NestJS   | Additional Microservices WebAPI Sample |   BoardDB   |
-|  BoardDB  |   DB   |    ----    | PostgreSQL  | alpine |   ----    | DB For BoardApi.                       |    ----     |
+|      Name       |  Type  | Languages  | Environment |   OS   | Framework | Description                                                        | Dependences |
+| :-------------: | :----: | :--------: | :---------: | :----: | :-------: | ------------------------------------------------------------------ | :---------: |
+|    WeaterApi    | WebAPI |    ----    |    ----     |  ----  |   ----    | External WebAPI Sample                                             |    ----     |
+|    BoardApi     | WebAPI | TypeScript |   Node.js   | alpine |  NestJS   | Additional Microservices WebAPI Sample                             |   BoardDB   |
+|     BoardDB     |   DB   |    ----    | PostgreSQL  | alpine |   ----    | DB For BoardApi.                                                   |    ----     |
+| clientIPAddrApi | WebAPI |    ----    |    ----     |  ----  |   ----    | Get Client IP Address For TodoUI Board using JavaScript Injection. |    ----     |
 
 ### Access Flow
 
@@ -258,7 +259,7 @@ If you want to expose the TodoApi to the External, you will need to change [defa
 | :--------------------: | :-------------: | :---------------: | :----------------------: | :------------: |
 | ADMINER_DEFAULT_SERVER | tododb(boarddb) | Internal Endpoint | TodoDB(BoardDB) Endpoint |     Enable     |
 
-### External WebAPI Sample
+### WeaterApi(External WebAPI Sample)
 
 #### WebAPI Json URL Format
 
@@ -271,22 +272,34 @@ If you want to expose the TodoApi to the External, you will need to change [defa
 ex)
 https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
 
+##### Json example
+
+```json
+{
+    "publishingOffice": "気象庁", //String Type
+    "reportDatetime": "2021-12-14T16:36:00+09:00", //Date Type
+    "targetArea": "Area", //String Type
+    "headlineText": "", //String Type
+    "text": "String" //String Type
+}
+```
+
 <q><cite>出典:気象庁ホームページ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json</cite></q>
 
 ### BoardApi
 
-|         ENV         |     Default Value      |          Type           |          Description          | Enable/Disable |
-| :-----------------: | :--------------------: | :---------------------: | :---------------------------: | :------------: |
-| TYPEORM_CONNECTION  |        postgres        |       DB Provider       | Select DB Provider PostgreSQL |     Enable     |
-|    TYPEORM_HOST     |        boarddb         |       DB HostName       |   BoardDB DNS or IP Address   |     Enable     |
-|  TYPEORM_USERNAME   |        boardapi        |      DB User Name       |       BoardDB User Name       |     Enable     |
-|  TYPEORM_PASSWORD   |        boardapi        |       DB Password       |       BoardDB Password        |     Enable     |
-|  TYPEORM_DATABASE   |        boardapi        |         DB Name         |        BoardDB DB Name        |     Enable     |
-|    TYPEORM_PORT     |          5432          |     DB Port Number      |      BoardDB Port Number      |     Enable     |
-| TYPEORM_SYNCHRONIZE |          true          | DB Migration at Startup | BoardDB Migration at Startup  |     Enable     |
-|   TYPEORM_LOGGING   |         false          |    DB Logging on API    |     False for Performance     |     Enable     |
-|  TYPEORM_ENTITIES   |  dist/**/*.entity.js   |     Entity JS file      |       No Need to Change       |     Enable     |
-| TYPEORM_MIGRATIONS  | dist/migration/**/*.js |  DB Migration JS file   |       No Need to Change       |     Enable     |
+|         ENV         |     Default Value      |          Type           |                                     Description                                      | Enable/Disable |
+| :-----------------: | :--------------------: | :---------------------: | :----------------------------------------------------------------------------------: | :------------: |
+| TYPEORM_CONNECTION  |        postgres        |       DB Provider       |    Select DB Provider postgres/mysql(/mariadb)/sqlite/mssql/oracle/mongodb/sqljs     |     Enable     |
+|    TYPEORM_HOST     |        boarddb         |       DB HostName       |                              BoardDB DNS or IP Address                               |     Enable     |
+|  TYPEORM_USERNAME   |        boardapi        |      DB User Name       |                                  BoardDB User Name                                   |     Enable     |
+|  TYPEORM_PASSWORD   |        boardapi        |       DB Password       |                                   BoardDB Password                                   |     Enable     |
+|  TYPEORM_DATABASE   |        boardapi        |         DB Name         | BoardDB DB Name/DB Data storage destination information When The Provider is SQLite. |     Enable     |
+|    TYPEORM_PORT     |          5432          |     DB Port Number      |                                 BoardDB Port Number                                  |     Enable     |
+| TYPEORM_SYNCHRONIZE |          true          | DB Migration at Startup |                             BoardDB Migration at Startup                             |     Enable     |
+|   TYPEORM_LOGGING   |         false          |    DB Logging on API    |                                False for Performance                                 |     Enable     |
+|  TYPEORM_ENTITIES   |  dist/**/*.entity.js   |     Entity JS file      |                                  No Need to Change                                   |     Enable     |
+| TYPEORM_MIGRATIONS  | dist/migration/**/*.js |  DB Migration JS file   |                                  No Need to Change                                   |     Enable     |
 
 #### GET/POST
 
@@ -308,11 +321,11 @@ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
 
 ```json
 {
-    "id": 1, //long Type //Except POST
+    "id": 1, //long(number) Type //Except POST
     "name": "YMD", //string Type
     "ip": "192.0.0.1", //string Type
     "comment": "Test", //string Type
-    "date": "2021-12-10T05:34:41.275Z", //Date Type //Defaults to the date you posted. //Automatic Setting //Cannot be changed by user
+    "date": "2021-12-10T05:34:41.275Z", //DateTimeOffset(Date) Type //Defaults to the date you posted. //Automatic Setting //Cannot be changed by user
     "isChange": true //boolean type //Default false //Update true //Automatic Setting //Cannot be changed by user
 }
 ```
@@ -325,3 +338,19 @@ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
 | POSTGRES_PASSWORD |   boardapi    | DB Password |   BoardDB Password    |     Enable     |
 |    PGPASSWORD     |   boardapi    | DB Password | BoardDB Root Password |     Enable     |
 |    POSTGRES_DB    |   boardapi    |   DB Name   |     BoardDB Name      |     Enable     |
+
+### clientIPAddrApi(External WebAPI Sample)
+
+#### WebAPI Json URL
+
+- https://jsonip.com/
+
+##### Json example
+
+```json
+{
+    "ip": "Your IP", //string Type
+    "geo-ip": "https://getjsonip.com/#plus", //string Type
+    "API Help": "https://getjsonip.com/#docs" //string Type
+}
+```

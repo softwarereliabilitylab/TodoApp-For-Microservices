@@ -14,9 +14,9 @@ export class Boarditem {
   @Column()
   comment: string;
 
-  @Column({ default: new Date() })
+  @Column()
   date: Date;
 
-  @Column({ default: false })
+  @Column()
   isChange: boolean;
 }
