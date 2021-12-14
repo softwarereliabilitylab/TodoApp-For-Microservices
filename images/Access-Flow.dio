@@ -1,0 +1,43 @@
+<mxfile host="65bd71144e" modified="2021-12-14T17:14:28.160Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.63.0 Chrome/91.0.4472.164 Electron/13.5.2 Safari/537.36" etag="k62MAfrzZaZEOzi7aoOQ" version="15.9.6" type="embed">
+    <diagram id="krjhbQEpPH33K6z-wm6C" name="minimum">
+        <mxGraphModel dx="1814" dy="1610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" value="&lt;font style=&quot;font-size: 30px ; background-color: rgb(0 , 0 , 0)&quot; color=&quot;#ffffff&quot;&gt;TodoDB&lt;/font&gt;" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=pod" parent="1" vertex="1">
+                    <mxGeometry x="710" y="-480" width="190" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="html=1;verticalLabelPosition=bottom;align=center;labelBackgroundColor=#ffffff;verticalAlign=top;strokeWidth=2;strokeColor=#0080F0;shadow=0;dashed=0;shape=mxgraph.ios7.icons.data;" parent="1" vertex="1">
+                    <mxGeometry x="840" y="-375" width="80" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font style=&quot;background-color: rgb(0 , 0 , 0) ; font-size: 30px&quot; color=&quot;#ffffff&quot;&gt;TodoEndpoint&lt;br&gt;&lt;/font&gt;" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=pod" parent="1" vertex="1">
+                    <mxGeometry x="-360" y="-480" width="190" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.servers.reverse_proxy;" parent="1" vertex="1">
+                    <mxGeometry x="-240" y="-360" width="100" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;font style=&quot;font-size: 30px ; background-color: rgb(0 , 0 , 0)&quot; color=&quot;#ffffff&quot;&gt;TodoUI&lt;/font&gt;" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=pod" parent="1" vertex="1">
+                    <mxGeometry x="-20" y="-480" width="190" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image;image=img/lib/active_directory/home_page.svg;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="-370" width="133.33" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;font style=&quot;font-size: 30px ; background-color: rgb(0 , 0 , 0)&quot; color=&quot;#ffffff&quot;&gt;TodoApi&lt;/font&gt;" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=api" parent="1" vertex="1">
+                    <mxGeometry x="370" y="-480" width="220" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;notch=0;fillColor=#FF0000;" parent="1" vertex="1">
+                    <mxGeometry x="-130" y="-420" width="100" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;notch=0;fillColor=#FF0000;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="-420" width="100" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.6;dx=40;notch=0;fillColor=#FF0000;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="-420" width="100" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="-400" y="-640" width="1400" height="480" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
