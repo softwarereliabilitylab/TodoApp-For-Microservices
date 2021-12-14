@@ -37,11 +37,7 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ### Access Flow
 
-![Access Flow](./images/Access-Flow-minimum.svg)
-
-                       -> External Weather WebAPI
-
-                       -> BoardApi -> BoardDB
+![Access Flow](./images/Access-Flow-Additional.svg)
 
 ## Deployment
 
