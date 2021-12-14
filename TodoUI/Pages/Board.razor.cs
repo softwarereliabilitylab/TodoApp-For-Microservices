@@ -10,19 +10,19 @@ public class BoardBase : ComponentBase
 
     [Inject]
     IJSRuntime? JSRuntime { get; set; }
-    public TimeSpan? timeSpan;
+    public TimeSpan? timeSpan { get; set; } = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            var module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Pages/Board.razor.js");
-            var Offset = await module.InvokeAsync<int>("clientTimezoneOffset");
+            var offsetModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./clientTimezoneOffset.js");
+            var Offset = await offsetModule.InvokeAsync<int>("clientTimezoneOffset");
 
             timeSpan = TimeSpan.FromMinutes(-Offset);
 
-
-            IPAddress = await module.InvokeAsync<string>("clientIPAddr");
+            var clientIPModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./clientIPAddr.js");
+            IPAddress = await clientIPModule.InvokeAsync<string>("clientIPAddr");
 
             if (String.IsNullOrWhiteSpace(IPAddress))
             {
