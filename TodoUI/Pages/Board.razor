@@ -20,7 +20,7 @@
     <button @onclick="Add">Add</button>
 </div>
 
-<br><br><br><br>
+<br><br><br><br><br>
 
 @if (boardItems is null || IPAddress is null || timeSpan is null)
 {
@@ -30,7 +30,6 @@ else
 {
     @foreach (var boardItem in boardItems)
     {
-        <br>
         <div class="Board">
     <div class="Info">
         <span class="ID">ID: @boardItem.Id</span>

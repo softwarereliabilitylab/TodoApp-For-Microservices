@@ -21,19 +21,19 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 |                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |   Dependences   |
 | :----------------------------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ------------------------------------------------- | :-------------: |
 |                  TodoApi                   |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo.                             |     TodoDB      |
-|                   TodoUI                   |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApi. PWA Support. Dark-Mode Support |     TodoApi     |
+|                   TodoUI                   |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApp. PWA Support. Dark-Mode Support |     TodoApi     |
 |                TodoEndpoint                | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.             |     TodoUI      |
 |                   TodoDB                   |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |      ----       |
 | TodoDB-Console(BoardDB-Console) (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB(BoardDB) Optional UI                       | TodoDB(BoardDB) |
 
 ### Additional Microservices/External WebAPI Sample
 
-|      Name       |  Type  | Languages  | Environment |   OS   | Framework | Description                                                        | Dependences |
-| :-------------: | :----: | :--------: | :---------: | :----: | :-------: | ------------------------------------------------------------------ | :---------: |
-|    WeaterApi    | WebAPI |    ----    |    ----     |  ----  |   ----    | External WebAPI Sample                                             |    ----     |
-|    BoardApi     | WebAPI | TypeScript |   Node.js   | alpine |  NestJS   | Additional Microservices WebAPI Sample                             |   BoardDB   |
-|     BoardDB     |   DB   |    ----    | PostgreSQL  | alpine |   ----    | DB For BoardApi.                                                   |    ----     |
-| clientIPAddrApi | WebAPI |    ----    |    ----     |  ----  |   ----    | Get Client IP Address For TodoUI Board using JavaScript Injection. |    ----     |
+|      Name       |  Type  | Languages  | Environment |   OS   | Framework | Description                                                                                 | Dependences |
+| :-------------: | :----: | :--------: | :---------: | :----: | :-------: | ------------------------------------------------------------------------------------------- | :---------: |
+|    WeaterApi    | WebAPI |    ----    |    ----     |  ----  |   ----    | External WebAPI Sample                                                                      |    ----     |
+|    BoardApi     | WebAPI | TypeScript |   Node.js   | alpine |  NestJS   | CRUD WebAPI For Board. Additional Microservices WebAPI Sample                               |   BoardDB   |
+|     BoardDB     |   DB   |    ----    | PostgreSQL  | alpine |   ----    | DB For BoardApi.                                                                            |    ----     |
+| clientIPAddrApi | WebAPI |    ----    |    ----     |  ----  |   ----    | Get Client IP Address For TodoUI Board using JavaScript Injection. (External WebAPI Sample) |    ----     |
 
 ### Access Flow
 
@@ -158,9 +158,11 @@ Requirements
 
 ### TodoApi/TodoUI/BoardApi
 
-Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI) directory in VSCode.
+Open the [TodoApi](./TodoApi/)/[TodoUI](./TodoUI)/[BoardApi](./BoardApi/) directory in VSCode.
 
 After opening, select `Reopen in Container` in the notification at the bottom right.
+
+BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a terminal.
 
 ### DEV Container
 
