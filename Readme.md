@@ -18,13 +18,13 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ## Structure
 
-|                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |   Dependences   |
-| :----------------------------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ------------------------------------------------- | :-------------: |
-|                  TodoApi                   |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo.                             |     TodoDB      |
-|                   TodoUI                   |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApp. PWA Support. Dark-Mode Support |     TodoApi     |
-|                TodoEndpoint                | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.             |     TodoUI      |
-|                   TodoDB                   |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |      ----       |
-| TodoDB-Console(BoardDB-Console) (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB(BoardDB) Optional UI                       | TodoDB(BoardDB) |
+|                    Name                    |       Type        | Languages | Environment |   OS   |          Framework           | Description                                       |                 Dependences                  |
+| :----------------------------------------: | :---------------: | :-------: | :---------: | :----: | :--------------------------: | ------------------------------------------------- | :------------------------------------------: |
+|                  TodoApi                   |      WebAPI       |    C#     |   .NET 6    | alpine |    ASP.NET Core 6 WebAPI     | CRUD WebAPI For Todo.                             |                    TodoDB                    |
+|                   TodoUI                   |       WebUI       |    C#     |   .NET 6    | alpine | ASP.NET Core 6 Blazor Server | WebUI For TodoApp. PWA Support. Dark-Mode Support | TodoApi/BoardApi(/WeaterApi/clientIPAddrApi) |
+|                TodoEndpoint                | External Endpoint |   ----    |    Nginx    | alpine |             ----             | Nginx Reverse Proxy/TodoApp Endpoint.             |                    TodoUI                    |
+|                   TodoDB                   |        DB         |   ----    |   MariaDB   | ubuntu |             ----             | DB For TodoApi.                                   |                     ----                     |
+| TodoDB-Console(BoardDB-Console) (Optional) | DB UI (Optional)  |   ----    |   adminer   | alpine |             ----             | TodoDB(BoardDB) Optional UI                       |               TodoDB(BoardDB)                |
 
 ### Additional Microservices/External WebAPI Sample
 
@@ -103,6 +103,12 @@ sudo mkdir -p /mnt/kubernetes/tododb
 
 sudo chmod 777 /mnt/kubernetes/tododb
 
+sudo mkdir -p /mnt/kubernetes/boarddb
+
+sudo chmod 777 /mnt/kubernetes/boarddb
+
+sudo mkdir -p /mnt/kubernetes/boarddb-data
+
 kubectl apply -f Todo-SC.yml
 
 cd ../../
@@ -169,7 +175,7 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 |   Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
 | :------: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :---------: |
 | TodoApi  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoDB    |
-|  TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi   |
+|  TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi/BoardApi(/WeaterApi/clientIPAddrApi)   |
 | BoardApi | alpine |  lts-alpine   |                                           node image                                            |  BoardApi   |
 
 ## Configure
