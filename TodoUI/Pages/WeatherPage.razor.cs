@@ -12,7 +12,7 @@ public class WeatherPageBase : ComponentBase
     {
         if (firstRender)
         {
-            var offsetModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./clientTimezoneOffset.js");
+            var offsetModule = await JSRuntime!.InvokeAsync<IJSObjectReference>("import", "./clientTimezoneOffset.js");
             var Offset = await offsetModule.InvokeAsync<int>("clientTimezoneOffset");
 
             timeSpan = TimeSpan.FromMinutes(-Offset);

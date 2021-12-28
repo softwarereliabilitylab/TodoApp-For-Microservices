@@ -8,9 +8,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 
-//ADD Get IP ADDR
-builder.Services.AddHttpContextAccessor();
-
 // Get URL Todo
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: true)

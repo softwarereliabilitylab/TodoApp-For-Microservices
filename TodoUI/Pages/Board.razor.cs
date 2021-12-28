@@ -4,8 +4,6 @@ using Microsoft.JSInterop;
 namespace TodoUI.Pages;
 public class BoardBase : ComponentBase
 {
-    [Inject]
-    IHttpContextAccessor? contextAccessor { get; set; }
     public string? IPAddress { get; set; } = null;
 
     [Inject]
@@ -16,28 +14,13 @@ public class BoardBase : ComponentBase
     {
         if (firstRender)
         {
-            var offsetModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./clientTimezoneOffset.js");
+            var offsetModule = await JSRuntime!.InvokeAsync<IJSObjectReference>("import", "./clientTimezoneOffset.js");
             var Offset = await offsetModule.InvokeAsync<int>("clientTimezoneOffset");
 
             timeSpan = TimeSpan.FromMinutes(-Offset);
 
-            var clientIPModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./clientIPAddr.js");
+            var clientIPModule = await JSRuntime!.InvokeAsync<IJSObjectReference>("import", "./clientIPAddr.js");
             IPAddress = await clientIPModule.InvokeAsync<string>("clientIPAddr");
-
-            if (String.IsNullOrWhiteSpace(IPAddress))
-            {
-                IPAddress = contextAccessor?.HttpContext?.Request?.Headers["X-Forwarded-For"].FirstOrDefault()?.ToString();
-            }
-
-            if (String.IsNullOrWhiteSpace(IPAddress))
-            {
-                IPAddress = contextAccessor?.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4().ToString();
-            }
-
-            if (String.IsNullOrWhiteSpace(IPAddress))
-            {
-                IPAddress = "Dummy";
-            }
 
             StateHasChanged();
         }
