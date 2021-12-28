@@ -37,7 +37,7 @@ else if (checkStatus.IsSuccessStatusCode)
             <td>@weather.reportDatetime.ToOffset(timeSpan.Value).ToString("yyyy/MM/dd tt hh:mm")</td>
             <td>@weather.targetArea</td>
             <td>@weather.headlineText</td>
-            <td>@((MarkupString)weather.text.Replace("\n\n","<br>"))</td>
+            <td>@((MarkupString)weather.text!.Replace("\n\n","<br>"))</td>
         </tr>
     </tbody>
 </table>
