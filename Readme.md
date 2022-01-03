@@ -39,6 +39,29 @@ Additional microservices and external WebAPI examples are in [v2.x.x Version Lin
 
 ![Access Flow](./images/Access-Flow-Additional.svg)
 
+## Features
+
+|     Project Name     |                          TodoApp                           |
+| :------------------: | :--------------------------------------------------------: |
+|     Project URL      | https://github.com/Yutaro-B18016/TodoApp-For-Microservices |
+|       Services       |                            4~8                             |
+|        Deploy        |                     Kubernetes/Docker                      |
+| Deploy (Kubernetes)  |                          skaffold                          |
+|   Deploy (Docker)    |                       Docker Compose                       |
+|    Build Your Own    |                         Available                          |
+| Works Without Change |                         Available                          |
+|        Login         |                        Unavailable                         |
+|       Network        |                        Proxy Model                         |
+
+- Simple structure with few services.
+- Flexible inter-container networking with environment variables.
+- Do not rely on cloud-merged functions.
+- Deployable by following the manual.
+- Environment-independent deployment (Kubernetes).
+- Deploying with no changes.
+- Easy to understand how to add samples and services.
+- Can be used as a sample or template.
+
 ## Deployment
 
 ### Docker
@@ -172,11 +195,11 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 
 ### DEV Container
 
-|   Name   |   OS   |      Tag      |                                           Description                                           | Dependences |
-| :------: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :---------: |
-| TodoApi  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoDB    |
-|  TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |   TodoApi/BoardApi(/WeaterApi/clientIPAddrApi)   |
-| BoardApi | alpine |  lts-alpine   |                                           node image                                            |  BoardApi   |
+|   Name   |   OS   |      Tag      |                                           Description                                           |                 Dependences                  |
+| :------: | :----: | :-----------: | :---------------------------------------------------------------------------------------------: | :------------------------------------------: |
+| TodoApi  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. |                    TodoDB                    |
+|  TodoUI  | Debian | bullseye-slim | In order to support Omni Sharp within C# extensions, the development environment must be glibc. | TodoApi/BoardApi(/WeaterApi/clientIPAddrApi) |
+| BoardApi | alpine |  lts-alpine   |                                           node image                                            |                   BoardApi                   |
 
 ## Configure
 
@@ -191,11 +214,11 @@ BoardApi: After opening the DEV Container in VSCode, run `yarn install` in a ter
 | ConnectionStrings__SQLServer  |       Server=tododb;Database=todoapi;User Id=sa;Password=Xt0d0ap!;       |    DB ConnectionStrings     |                            TodoDB Connection Information When The Provider is SQLServer                            |     Enable     |
 |   ConnectionStrings__SQLite   |                          Filename=DB/todoapi.db                          | DB Data storage destination | DB Data storage destination information When The Provider is SQLite. The destination directory must already exist. |     Enable     |
 
-#### GET/POST
+#### GET(ALL)/POST
 
 - /api/todoitems
 
-#### PUT/DELETE
+#### GET(ONE)/PUT/DELETE
 
 - /api/todoitems/${id}
 
@@ -305,11 +328,11 @@ https://www.jma.go.jp/bosai/forecast/data/overview_forecast/130000.json
 |  TYPEORM_ENTITIES   |  dist/**/*.entity.js   |     Entity JS file      |                                  No Need to Change                                   |     Enable     |
 | TYPEORM_MIGRATIONS  | dist/migration/**/*.js |  DB Migration JS file   |                                  No Need to Change                                   |     Enable     |
 
-#### GET/POST
+#### GET(ALL)/POST
 
 - /api/boarditems
 
-#### PUT/DELETE
+#### GET(ONE)/PUT/DELETE
 
 - /api/boarditems/${id}
 
