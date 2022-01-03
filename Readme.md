@@ -6,7 +6,7 @@ It was created for learning microservice architecture.
 
 The base minimum configuration is [v1.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v1.x.x-Minimum-Configuration).
 
-Additional microservices and external WebAPI examples are in [v2.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/master).
+Additional microservices and external WebAPI examples are in [v2.x.x Version Line](https://github.com/Yutaro-B18016/TodoApp-For-Microservices/tree/v2.x.x-Additional-Microservices).
 
 ![TodoUI](./images/TodoUI.png)
 
