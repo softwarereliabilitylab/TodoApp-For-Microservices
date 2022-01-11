@@ -72,7 +72,7 @@ Requirements
 - Docker Compose (If you have less than Compose V2, use the `docker-compose` command instead of the `docker compose` command.)
 
 ```bash
-git clone https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
+git clone -b v2.x.x-Additional-Microservices https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
 
 cd TodoApp-For-Microservices/deploy/compose
 
@@ -92,7 +92,7 @@ Requirements
 - skaffold
 
 ```bash
-git clone https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
+git clone -b v2.x.x-Additional-Microservices https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
 
 cd TodoApp-For-Microservices/
 
@@ -116,7 +116,7 @@ The sample PV uses Node local.(It is not possible to increase the value of `repl
 **The node-name in [Todo-SC.yml](./deploy/k8s/Todo-SC.yml) needs to be changed to your node name.**
 
 ```bash
-git clone https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
+git clone -b v2.x.x-Additional-Microservices https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
 
 cd TodoApp-For-Microservices/deploy/k8s/
 
@@ -152,7 +152,7 @@ kubectl apply -n todoapp -f BoardDB-PVC.yml
 After deploying the app, do the following.
 
 ```bash
-git clone https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
+git clone -b v2.x.x-Additional-Microservices https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
 
 cd TodoApp-For-Microservices/deploy/k8s/
 
@@ -164,7 +164,7 @@ After deployment, it can be accessed by Ingress.
 #### Accessing the DB using Adminer
 
 ```bash
-git clone https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
+git clone -b v2.x.x-Additional-Microservices https://github.com/Yutaro-B18016/TodoApp-For-Microservices.git
 
 cd TodoApp-For-Microservices/deploy/k8s/
 
