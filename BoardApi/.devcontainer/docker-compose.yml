@@ -37,7 +37,7 @@ services:
 
   boarddb-console:
     image: adminer
-    container_name: adminer
+    container_name: boarddb-console
     ports:
       - "8080:8080"
     environment:
